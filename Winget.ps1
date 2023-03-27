@@ -23,7 +23,7 @@ function ConvertTo-Hashtable {
 
 function Get-SoftwareOptions {
     $jsonFile = "software_options.json"
-    $url = "https://raw.githubusercontent.com/joanfercal/Code/main/software_options.json"
+    $url = "https://raw.githubusercontent.com/joanfercal/Code/master/software_options.json"
 
     if (-not (Test-Path $jsonFile)) {
         Invoke-WebRequest -Uri $url -OutFile $jsonFile
