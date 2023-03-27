@@ -1,0 +1,113 @@
+{
+    "Normal": [
+        {"Name": "7-Zip", "WingetName": "7zip.7zip"},
+        {"Name": "GeForce Experience", "WingetName": "NVIDIA.GeForceExperience"},
+        {"Name": "Google Chrome", "WingetName": "Google.Chrome"},
+        {"Name": "VLC Media Player", "WingetName": "VideoLAN.VLC"},
+        {"Name": "WhatsApp", "WingetName": "WhatsApp.WhatsApp"},
+        {"Name": "Messenger", "WingetName": "Facebook.Messenger"}
+    ],
+    "Power": [
+        {"Name": "Everything", "WingetName": "voidtools.Everything"},
+        {"Name": "Everything Toolbar", "WingetName": "stnkl.EverythingToolbar"},
+        {"Name": "PowerToys", "WingetName": "Microsoft.PowerToys"},
+        {"Name": "AutoHotkey", "WingetName": "Lexikos.AutoHotkey"},
+        {"Name": "Ubuntu", "WingetName": "Canonical.Ubuntu"},
+        {"Name": "WinDirStat", "WingetName": "WinDirStat.WinDirStat"},
+        {"Name": "VirtualBox", "WingetName": "Oracle.VirtualBox"},
+        {"Name": "FileZilla", "WingetName": "TimKosse.FileZillaClient"},
+        {"Name": "WingetUI", "WingetName": "SomePythonThings.WingetUIStore"},
+        {"Name": "WSA (Android)", "WingetName": "9P3395VX91NR"},
+        {"Name": "WSA SideLoader", "WingetName": "infinitepower18.WSASideloader"}
+    ],
+    "Developer": [
+        {"Name": "Visual Studio Code", "WingetName": "Microsoft.VisualStudioCode"},
+        {"Name": "Windows Terminal", "WingetName": "Microsoft.WindowsTerminal"},
+        {"Name": "Oh My Posh", "WingetName": "JanDeDobbeleer.OhMyPosh"},
+        {"Name": "Git", "WingetName": "Git.Git"},
+        {"Name": "Docker Desktop", "WingetName": "Docker.DockerDesktop"},
+        {"Name": "Python 3", "WingetName": "Python.Python.3"},
+        {"Name": "Python 3.11", "WingetName": "Python.Python.3.11"},
+        {"Name": "Tailscale", "WingetName": "tailscale.tailscale"},
+        {"Name": "Powershell 7", "WingetName": "Microsoft.PowerShell"},
+        {"Name": "DevToys", "WingetName": "DevToys"}
+    ],
+    "Utilities": [
+        {"Name": "qBittorrent", "WingetName": "qbittorrent.qBittorrent"},
+        {"Name": "Transmission", "WingetName": "Transmission.Transmission"},
+        {"Name": "Elgato Stream Deck", "WingetName": "Elgato.StreamDeck"},
+        {"Name": "Windscribe", "WingetName": "Windscribe.Windscribe"},
+        {"Name": "DupeGuru", "WingetName": "DupeGuru.DupeGuru"},
+        {"Name": "HWiNFO", "WingetName": "REALiX.HWiNFO"},
+        {"Name": "TeamViewer", "WingetName": "TeamViewer.TeamViewer"},
+        {"Name": "WinDynamicDesktop", "WingetName": "t1m0thyj.WinDynamicDesktop"},
+        {"Name": "WingetUI", "WingetName": "SomePythonThings.WingetUIStore"},
+        {"Name": "Mouse W/O Borders", "WingetName": "Microsoft.MouseWithoutBorders"}
+    ],
+    "Office": [
+        {"Name": "Microsoft Teams", "WingetName": "Microsoft.Teams"},
+        {"Name": "Microsoft Office", "WingetName": "Microsoft.Office"},
+        {"Name": "Microsoft OneDrive", "WingetName": "Microsoft.OneDrive"},
+        {"Name": "Zoom", "WingetName": "Zoom.Zoom"},
+        {"Name": "Libre Office", "WingetName": "TheDocumentFoundation.LibreOffice"},
+        {"Name": "Logitech Options+", "WingetName": "Logitech.OptionsPlus"}
+    ],
+    "Games": [
+        {"Name": "Retroarch", "WingetName": "libretro.RetroArch"},
+        {"Name": "Sunshine", "WingetName": "LizardByte.Sunshine"},
+        {"Name": "Steam", "WingetName": "Valve.Steam"},
+        {"Name": "League of Legends", "WingetName": "RiotGames.LeagueOfLegends"},
+        {"Name": "Parsec", "WingetName": "Parsec.Parsec"}
+    ],
+    "Media": [
+        {"Name": "YTMusic", "WingetName": "Ytmdesktop.Ytmdesktop"},
+        {"Name": "Spotify", "WingetName": "Spotify.Spotify"},
+        {"Name": "Discord", "WingetName": "Discord.Discord"},
+        {"Name": "HandBrake", "WingetName": "HandBrake.HandBrake"},
+        {"Name": "Gimp", "WingetName": "GIMP.GIMP"},
+        {"Name": "VoiceMod", "WingetName": "Voicemod.Voicemod"},
+        {"Name": "OBS Studio", "WingetName": "obsproject.obs-studio"},
+        {"Name": "Calibre", "WingetName": "calibre.calibre"}
+    ],
+    "Registry": [
+        {
+            "Name": "Edge Extension 1",
+            "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\flffekjijpabhjgpoapooggncnmcjopa",
+            "ValueName": "update_url",
+            "ValueData": "https://clients2.google.com/service/update2/crx"
+        },
+        {
+            "Name": "Edge Extension 2",
+            "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\jbkfoedolllekgbhcbcoahefnbanhhlh",
+            "ValueName": "update_url",
+            "ValueData": "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
+        },
+        {
+            "Name": "Edge Extension 3",
+            "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\chphlpgkkbolifaimnlloiipkdnihall",
+            "ValueName": "update_url",
+            "ValueData": "https://clients2.google.com/service/update2/crx"
+        }
+    ],
+    "WindowsOptionalComponents": [
+        {
+            "Name": "VirtualMachinePlatform",
+            "FeatureName": "VirtualMachinePlatform"
+        },
+        {
+            "Name": "Microsoft-Windows-Subsystem-Linux",
+            "FeatureName": "Microsoft-Windows-Subsystem-Linux"
+        }
+    ],
+    "Updates": [
+        {
+            "Name": "VirtualMachinePlatform",
+            "FeatureName": "VirtualMachinePlatform"
+        },
+        {
+            "Name": "Microsoft-Windows-Subsystem-Linux",
+            "FeatureName": "Microsoft-Windows-Subsystem-Linux"
+        }
+    ]
+}
+
