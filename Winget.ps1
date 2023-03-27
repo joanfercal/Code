@@ -230,4 +230,4 @@ $softwareOptions = Get-SoftwareOptions
 Add-CheckBoxes -tabControl $tabControl -softwareOptions $softwareOptions -progressBar $progressBar  
 Add-InstallButton -tabControl $tabControl -softwareOptions $softwareOptions
 Install-Winget
-[void]$form.ShowDialog() | Out-Null
+$form.ShowDialog() | Out-Null
