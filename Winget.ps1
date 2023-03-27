@@ -22,8 +22,16 @@ function ConvertTo-Hashtable {
 }
 
 function Get-SoftwareOptions {
-    Get-Content "software_options.json" | ConvertFrom-Json | ConvertTo-Hashtable
+    $jsonFile = "software_options.json"
+    $url = "https://raw.githubusercontent.com/joanfercal/Code/main/software_options.json"
+
+    if (-not (Test-Path $jsonFile)) {
+        Invoke-WebRequest -Uri $url -OutFile $jsonFile
+    }
+
+    Get-Content $jsonFile | ConvertFrom-Json | ConvertTo-Hashtable
 }
+
 
 function Add-CheckBoxes {
     param(
