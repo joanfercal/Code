@@ -22,15 +22,12 @@ function ConvertTo-Hashtable {
 }
 
 function Get-SoftwareOptions {
-    $jsonFile = "software_options.json"
     $url = "https://raw.githubusercontent.com/joanfercal/Code/master/software_options.json"
 
-    if (-not (Test-Path $jsonFile)) {
-        Invoke-WebRequest -Uri $url -OutFile $jsonFile
-    }
-
-    Get-Content $jsonFile | ConvertFrom-Json | ConvertTo-Hashtable
+    $jsonContent = (Invoke-WebRequest -Uri $url).Content
+    $jsonContent | ConvertFrom-Json | ConvertTo-Hashtable
 }
+
 
 function Add-CheckBoxes {
     param(
