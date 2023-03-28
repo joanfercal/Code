@@ -5,6 +5,9 @@
         {"Name": "GeForce Experience", "WingetName": "NVIDIA.GeForceExperience"},
         {"Name": "Google Chrome", "WingetName": "Google.Chrome"},
         {"Name": "VLC Media Player", "WingetName": "VideoLAN.VLC"},
+        {"Name": "Acrobat Reader", "WingetName": "Adobe.AdobeAcrobatReaderDC"},
+        {"Name": "Malwarebytes", "WingetName": "Malwarebytes.Malwarebytes"},
+        {"Name": "Bitdefender", "WingetName": "Bitdefender.Bitdefender"},
         {"Name": "WhatsApp", "WingetName": "WhatsApp.WhatsApp"},
         {"Name": "Messenger", "WingetName": "Facebook.Messenger"}
     ],
@@ -17,7 +20,6 @@
         {"Name": "WinDirStat", "WingetName": "WinDirStat.WinDirStat"},
         {"Name": "VirtualBox", "WingetName": "Oracle.VirtualBox"},
         {"Name": "FileZilla", "WingetName": "TimKosse.FileZillaClient"},
-        {"Name": "WingetUI", "WingetName": "SomePythonThings.WingetUIStore"},
         {"Name": "WSA (Android)", "WingetName": "9P3395VX91NR"},
         {"Name": "WSA SideLoader", "WingetName": "infinitepower18.WSASideloader"},
         {"Name": "Microsoft Network Monitor", "WingetName": "Microsoft.NetMon"},
@@ -59,6 +61,8 @@
         {"Name": "Microsoft Office", "WingetName": "Microsoft.Office"},
         {"Name": "Microsoft OneDrive", "WingetName": "Microsoft.OneDrive"},
         {"Name": "Zoom", "WingetName": "Zoom.Zoom"},
+        {"Name": "Grammarly Office", "WingetName": "Grammarly.ForOffice"},
+        {"Name": "Grammarly Windows", "WingetName": "Grammarly.ForWindows"},
         {"Name": "Libre Office", "WingetName": "TheDocumentFoundation.LibreOffice"},
         {"Name": "Logitech Options+", "WingetName": "Logitech.OptionsPlus"}
     ],
@@ -67,6 +71,10 @@
         {"Name": "Sunshine", "WingetName": "LizardByte.Sunshine"},
         {"Name": "Steam", "WingetName": "Valve.Steam"},
         {"Name": "League of Legends", "WingetName": "RiotGames.LeagueOfLegends"},
+        {"Name": "Epic Games", "WingetName": "EpicGames.EpicGamesLauncher"},
+        {"Name": "Origin", "WingetName": "ElectronicArts.Origin"},
+        {"Name": "Battle.net", "WingetName": "Blizzard.BattleNet"},
+        {"Name": "Moonlight", "WingetName": "Moonlight.Moonlight"},
         {"Name": "Parsec", "WingetName": "Parsec.Parsec"}
     ],
     "Media": [
