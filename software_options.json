@@ -159,6 +159,16 @@
             "Name": "Microsoft-Windows-Subsystem-Linux",
             "FeatureName": "Microsoft-Windows-Subsystem-Linux"
         }
-    ]
+    ],
+    "Custom": [
+        {
+          "Name": "SampleSoftware1",
+          "InstallerUrl": "https://example.com/SampleSoftware1.msi"
+        },
+        {
+          "Name": "SampleSoftware2",
+          "InstallerUrl": "https://example.com/SampleSoftware2.msi"
+        }
+      ]
 }
 

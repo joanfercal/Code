@@ -1,5 +1,5 @@
 Add-Type -AssemblyName System.Windows.Forms, System.Drawing
-$tabOrder = @("Normal", "Power", "Developer", "Utilities", "Office", "Games", "Media", "Registry", "WindowsOptionalComponents")
+$tabOrder = @("Normal", "Power", "Developer", "Utilities", "Office", "Games", "Media", "Registry", "Custom", "WindowsOptionalComponents")
 function Install-Winget {
     if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
         Invoke-WebRequest -Uri "https://github.com/microsoft/winget-cli/releases/download/v1.4.10173/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.appxbundle" -OutFile "winget.appxbundle"
@@ -130,6 +130,13 @@ function InstallSoftware {
                             }
                             New-ItemProperty -Path $key -Name $item.ValueName -Value $item.ValueData -PropertyType String -Force | Out-Null
                             0
+                        }
+                        
+                        'InstallerUrl' {
+                            $tempFile = [System.IO.Path]::GetTempFileName()
+                            Invoke-WebRequest -Uri $item.InstallerUrl -OutFile $tempFile
+                            $msiexecProcess = Start-Process -FilePath 'msiexec' -ArgumentList "/i `"$tempFile`" /qn /norestart" -PassThru -Wait -WindowStyle Hidden
+                            return $msiexecProcess.ExitCode
                         }
                     }
                 }
