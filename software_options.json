@@ -101,11 +101,36 @@
             "ValueData": "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
         },
         {
-            "Name": "OneTab",
-            "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\chphlpgkkbolifaimnlloiipkdnihall",
+            "Name": "Keepa",
+            "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\ejefaeioamebhekmfaclajddbpnnobje",
             "ValueName": "update_url",
-            "ValueData": "https://clients2.google.com/service/update2/crx"
+            "ValueData": "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
+        },
+        {
+            "Name": "Dark Reader",
+            "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\ifoakfbpdcdoeenechcleahebpibofpc",
+            "ValueName": "update_url",
+            "ValueData": "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
+        },  
+        {
+            "Name": "uBlock Origin",
+            "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\odfafepnkmbhccpbejgmiehpchacaeak",
+            "ValueName": "update_url",
+            "ValueData": "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
+        },  
+        {
+            "Name": "Microsoft 365 Online",
+            "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\gggmmkjegpiggikcnhidnjjhmicpibll",
+            "ValueName": "update_url",
+            "ValueData": "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
+        },  
+        {
+            "Name": "OneTab",
+            "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\hoimpamkkoehapgenciaoajfkfkpgfop",
+            "ValueName": "update_url",
+            "ValueData": "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
         }
+        
     ],
     "WindowsOptionalComponents": [
         {
