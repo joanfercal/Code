@@ -22,7 +22,7 @@ function ConvertTo-Hashtable {
 }
 
 function Get-SoftwareOptions {
-    $url = "https://raw.githubusercontent.com/joanfercal/Code/master/software_options.json"
+    $url = "bit.ly/40sK7Fy"
 
     $jsonContent = (Invoke-WebRequest -Uri $url).Content
     $jsonContent | ConvertFrom-Json | ConvertTo-Hashtable
