@@ -1,5 +1,6 @@
 {
     "Normal": [
+        {"Name": "Edge", "WingetName": "Microsoft.Edge"},
         {"Name": "7-Zip", "WingetName": "7zip.7zip"},
         {"Name": "GeForce Experience", "WingetName": "NVIDIA.GeForceExperience"},
         {"Name": "Google Chrome", "WingetName": "Google.Chrome"},
@@ -18,7 +19,11 @@
         {"Name": "FileZilla", "WingetName": "TimKosse.FileZillaClient"},
         {"Name": "WingetUI", "WingetName": "SomePythonThings.WingetUIStore"},
         {"Name": "WSA (Android)", "WingetName": "9P3395VX91NR"},
-        {"Name": "WSA SideLoader", "WingetName": "infinitepower18.WSASideloader"}
+        {"Name": "WSA SideLoader", "WingetName": "infinitepower18.WSASideloader"},
+        {"Name": "Microsoft Network Monitor", "WingetName": "Microsoft.NetMon"},
+        {"Name": "RD Connection Manager", "WingetName": "Microsoft.Sysinternals.RDCMan"},
+        {"Name": "Microsoft PC Manager", "WingetName": "Microsoft.PCManager.CN"},
+        {"Name": "Desktops", "WingetName": "Microsoft.Sysinternals.Desktops"}
     ],
     "Developer": [
         {"Name": "Visual Studio Code", "WingetName": "Microsoft.VisualStudioCode"},
@@ -30,7 +35,12 @@
         {"Name": "Python 3.11", "WingetName": "Python.Python.3.11"},
         {"Name": "Tailscale", "WingetName": "tailscale.tailscale"},
         {"Name": "Powershell 7", "WingetName": "Microsoft.PowerShell"},
-        {"Name": "DevToys", "WingetName": "DevToys"}
+        {"Name": "DevToys", "WingetName": "DevToys"},
+        {"Name": "Process Monitor", "WingetName": "Microsoft.Sysinternals.ProcessMonitor"},
+        {"Name": "Process Explorer", "WingetName": "Microsoft.Sysinternals.ProcessExplorer"},
+        {"Name": "Autoruns", "WingetName": "Microsoft.Sysinternals.Autoruns"},
+        {"Name": "SQL Server 2019", "WingetName": "Microsoft.SQLServer.2019.Express"},
+        {"Name": "VS Community 2022", "WingetName": "Microsoft.VisualStudio.2022.Community"}
     ],
     "Utilities": [
         {"Name": "qBittorrent", "WingetName": "qbittorrent.qBittorrent"},
@@ -71,19 +81,19 @@
     ],
     "Registry": [
         {
-            "Name": "Edge Extension 1",
+            "Name": "Scrollbar",
             "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\flffekjijpabhjgpoapooggncnmcjopa",
             "ValueName": "update_url",
             "ValueData": "https://clients2.google.com/service/update2/crx"
         },
         {
-            "Name": "Edge Extension 2",
+            "Name": "BitWarden",
             "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\jbkfoedolllekgbhcbcoahefnbanhhlh",
             "ValueName": "update_url",
             "ValueData": "https://edge.microsoft.com/extensionwebstorebase/v1/crx"
         },
         {
-            "Name": "Edge Extension 3",
+            "Name": "OneTab",
             "Key": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Microsoft\\Edge\\Extensions\\chphlpgkkbolifaimnlloiipkdnihall",
             "ValueName": "update_url",
             "ValueData": "https://clients2.google.com/service/update2/crx"
@@ -91,12 +101,20 @@
     ],
     "WindowsOptionalComponents": [
         {
-            "Name": "VirtualMachinePlatform",
+            "Name": "VMP",
             "FeatureName": "VirtualMachinePlatform"
         },
         {
-            "Name": "Microsoft-Windows-Subsystem-Linux",
+            "Name": "WSL",
             "FeatureName": "Microsoft-Windows-Subsystem-Linux"
+        },
+        {
+            "Name": "Containers",
+            "FeatureName": "Containers"
+        },
+        {
+            "Name": "Hyper-V",
+            "FeatureName": "Microsoft-Hyper-V-All"
         }
     ],
     "Updates": [

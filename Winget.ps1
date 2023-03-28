@@ -1,5 +1,4 @@
 Add-Type -AssemblyName System.Windows.Forms, System.Drawing
-# [System.Windows.Forms.Application]::EnableVisualStyles()
 $tabOrder = @("Normal", "Power", "Developer", "Utilities", "Office", "Games", "Media", "Registry", "WindowsOptionalComponents")
 function Install-Winget {
     if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
@@ -54,10 +53,11 @@ function Add-CheckBoxes {
 
             $checkBox = New-Object System.Windows.Forms.CheckBox -Property @{
                 Location = New-Object System.Drawing.Point($checkboxXOffset, $checkboxYOffset)
-                Size     = New-Object System.Drawing.Size(150, 20)
+                Size     = New-Object System.Drawing.Size(140, 20)
                 Text     = $checkBoxText
                 Name     = $checkBoxText
                 Tag      = $software
+                Font = New-Object System.Drawing.Font("Microsoft Sans Serif", 7, ([System.Drawing.FontStyle]::Bold -bor [System.Drawing.FontStyle]::Underline))
             }
 
             $checkBox.Add_CheckedChanged({
@@ -68,7 +68,7 @@ function Add-CheckBoxes {
 
             $checkboxIndex++
             $checkboxYOffset = 5 + ($checkboxIndex % 7) * 25
-            $checkboxXOffset = 150 * [Math]::Floor($checkboxIndex / 7)
+            $checkboxXOffset = 140 * [Math]::Floor($checkboxIndex / 7)
         }
 
         $tabControl.Controls.Add($tab)
@@ -96,7 +96,7 @@ function InstallSoftware {
     $progressBar.Value = 0
     $progressBar.Step = 1
     $console.Clear()
-
+    
     $jobs = @()
     foreach ($tab in $tabControl.TabPages) {
         foreach ($item in $softwareOptions[$tab.Text]) {
@@ -154,9 +154,9 @@ function InstallSoftware {
             0 { $console.AppendText("Installed successfully!`n") }
             1 { $console.AppendText("Already installed.`n") }
             2 { $console.AppendText("Failed to install.`n") }
+            740 { $console.AppendText("Already installed.`n") }
             -1978335189 { $console.AppendText("No updates found.`n") }
             -1978335215 { $console.AppendText("Not Found.`n") }
-            740 { $console.AppendText("Already installed.`n") }
             default { $console.AppendText("Failed with $($exitCode).`n") }
         }
 
@@ -166,13 +166,15 @@ function InstallSoftware {
 
     $progressBar.Value = $progressBar.Maximum
     $console.AppendText("DONE!`n")
-    Start-Sleep -Milliseconds 1000
     $progressBar.Visible = $false
     Start-Sleep -Milliseconds 1000
+    Start-Sleep -Milliseconds 1000
+    $console.AppendText("`n")
+    $console.AppendText("`n")
+    $console.AppendText("`n")
     $console.AppendText("`nReady!`n")
+    $console.AppendText("`n")
 }
-
-
 
 function Add-InstallButton {
     param(
@@ -181,7 +183,7 @@ function Add-InstallButton {
     )
 
     $button = New-Object System.Windows.Forms.Button -Property @{
-        Location = New-Object System.Drawing.Point(330, 220)
+        Location = New-Object System.Drawing.Point(330, 250)
         Size = New-Object System.Drawing.Size(80, 30)
         Text = "Install"
         Name = "InstallButton"
@@ -195,7 +197,7 @@ function Add-InstallButton {
 
 $form = New-Object System.Windows.Forms.Form -Property @{
     Text = "Software Installer"
-    Size = New-Object System.Drawing.Size(452, 300)
+    Size = New-Object System.Drawing.Size(452, 330)
     StartPosition = "CenterScreen"
     TopMost = $true
     MaximizeBox = $false
@@ -205,7 +207,7 @@ $form = New-Object System.Windows.Forms.Form -Property @{
 }
 
 $selectAllButton = New-Object System.Windows.Forms.Button -Property @{
-    Location  = New-Object System.Drawing.Point(330, 190)
+    Location  = New-Object System.Drawing.Point(330, 220)
     Size      = New-Object System.Drawing.Size(80, 30)
     Text      = "Select All"
     Add_Click = { ToggleSelectAllCheckboxes $tabControl }
@@ -213,7 +215,7 @@ $selectAllButton = New-Object System.Windows.Forms.Button -Property @{
 
 $tabControl = New-Object System.Windows.Forms.TabControl -Property @{
     Location = New-Object System.Drawing.Point(8, 3)
-    Size = New-Object System.Drawing.Size(420, 180)
+    Size = New-Object System.Drawing.Size(420, 210)
     Parent = $form
 }
 
@@ -223,12 +225,12 @@ $console = New-Object System.Windows.Forms.TextBox -Property @{
     ScrollBars = "Vertical"
     WordWrap = $true
     Font = New-Object System.Drawing.Font("Consolas", 8)
-    Location = New-Object System.Drawing.Point(10, 190)
+    Location = New-Object System.Drawing.Point(10, 220)
     Size = New-Object System.Drawing.Size(300, 50)
 }
 
 $progressBar = New-Object System.Windows.Forms.ProgressBar -Property @{
-    Location = New-Object System.Drawing.Point(10, 240)
+    Location = New-Object System.Drawing.Point(10, 270)
     Size = New-Object System.Drawing.Size(300, 20)
     Visible = $false
     Style = "Continuous"
