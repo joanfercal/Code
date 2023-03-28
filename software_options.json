@@ -74,7 +74,7 @@
         {"Name": "Epic Games", "WingetName": "EpicGames.EpicGamesLauncher"},
         {"Name": "Origin", "WingetName": "ElectronicArts.Origin"},
         {"Name": "Battle.net", "WingetName": "Blizzard.BattleNet"},
-        {"Name": "Moonlight", "WingetName": "Moonlight.Moonlight"},
+        {"Name": "Moonlight", "WingetName": "MoonlightGameStreamingProject.Moonlight"},
         {"Name": "Parsec", "WingetName": "Parsec.Parsec"}
     ],
     "Media": [
