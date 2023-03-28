@@ -18,7 +18,7 @@ $button2.Content = "Uninstaller"
 $button2.Height = 50
 $button2.Margin = New-Object System.Windows.Thickness 0
 $button2.Add_Click({
-    iwr -useb bit.ly/40sK7Fy | iex
+    iwr -useb bit.ly/40z7QDw | iex
 })
 
 $button3 = New-Object System.Windows.Controls.Button
