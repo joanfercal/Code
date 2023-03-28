@@ -1,4 +1,5 @@
 Add-Type -AssemblyName System.Windows.Forms, System.Drawing
+# [System.Windows.Forms.Application]::EnableVisualStyles()
 $tabOrder = @("Normal", "Power", "Developer", "Utilities", "Office", "Games", "Media", "Registry", "WindowsOptionalComponents")
 function Install-Winget {
     if (-not (Get-Command winget -ErrorAction SilentlyContinue)) {
@@ -32,7 +33,6 @@ function Get-SoftwareOptions {
     Get-Content $jsonFile | ConvertFrom-Json | ConvertTo-Hashtable
 }
 
-
 function Add-CheckBoxes {
     param(
         [System.Windows.Forms.TabControl]$tabControl,
@@ -47,12 +47,10 @@ function Add-CheckBoxes {
 
         $currentSoftwareOptions = $softwareOptions[$tabName]
 
+        $checkboxIndex = 0
+
         foreach ($software in $currentSoftwareOptions) {
-            if ($tabName -eq "Registry") {
-                $checkBoxText = $software.Name
-            } else {
-                $checkBoxText = $software.Name
-            }
+            $checkBoxText = $software.Name
 
             $checkBox = New-Object System.Windows.Forms.CheckBox -Property @{
                 Location = New-Object System.Drawing.Point($checkboxXOffset, $checkboxYOffset)
@@ -67,17 +65,15 @@ function Add-CheckBoxes {
             })
 
             $tab.Controls.Add($checkBox)
-            $checkboxYOffset += 25
-            if ($checkboxYOffset -gt 150) {
-                $checkboxXOffset += 150
-                $checkboxYOffset = 5
-            }
+
+            $checkboxIndex++
+            $checkboxYOffset = 5 + ($checkboxIndex % 7) * 25
+            $checkboxXOffset = 150 * [Math]::Floor($checkboxIndex / 7)
         }
 
         $tabControl.Controls.Add($tab)
     }
 }
-
 
 function Update-ProgressBar {
     param(
@@ -95,58 +91,73 @@ function InstallSoftware {
         [System.Windows.Forms.TabControl]$tabControl,
         [Hashtable]$softwareOptions
     )
-        $progressBar.Visible = $true
-        $progressBar.Value = 0
-        $progressBar.Step = 1
-        $console.Clear()
-    
-        $jobs = @()
-        foreach ($tab in $tabControl.TabPages) {
-            foreach ($item in $softwareOptions[$tab.Text]) {
-                $checkBoxControl = $tab.Controls[$item.Name]
-                if ($checkBoxControl.Checked) {
-                    $console.AppendText("Installing $($item.Name)`n")
-    
-                    $jobScript = {
-                        param($item)
-                        if ($item.PSObject.Properties.Name -contains 'WingetName') {
+
+    $progressBar.Visible = $true
+    $progressBar.Value = 0
+    $progressBar.Step = 1
+    $console.Clear()
+
+    $jobs = @()
+    foreach ($tab in $tabControl.TabPages) {
+        foreach ($item in $softwareOptions[$tab.Text]) {
+            $checkBoxControl = $tab.Controls[$item.Name]
+            if ($checkBoxControl.Checked) {
+                $console.AppendText("Installing $($item.Name)`n")
+
+                $jobScript = {
+                    param($item)
+                    switch ($item.PSObject.Properties.Name) {
+                        'WingetName' {
                             $wingetProcess = Start-Process -FilePath 'winget' -ArgumentList "install --id $($item.WingetName) --accept-package-agreements --accept-source-agreements -h" -PassThru -Wait -WindowStyle Hidden
-                            return $wingetProcess.ExitCode
-                        } elseif ($item.PSObject.Properties.Name -contains 'FeatureName') {
+                            $wingetProcess.WaitForExit()
+                            $wingetProcess.ExitCode
+                        }
+                        'FeatureName' {
                             $featureName = $item.FeatureName
-                            if ((Get-WindowsOptionalFeature -Online -FeatureName $featureName).State -eq 'Disabled') {
+                            $featureState = (Get-WindowsOptionalFeature -Online -FeatureName $featureName).State
+                        
+                            if ($featureState -eq 'Disabled') {
                                 Enable-WindowsOptionalFeature -Online -FeatureName $featureName -All -NoRestart
+                                0
+                            } elseif ($featureState -eq 'Enabled') {
+                                1
+                            } else {
+                                2
                             }
-                            return 0
-                        } elseif ($item.PSObject.Properties.Name -contains 'Key') {
+                        }
+                        
+                        'Key' {
                             $key = $item.Key -replace "HKEY_LOCAL_MACHINE", "HKLM:"
                             if (-not (Test-Path -Path $key)) {
                                 New-Item -Path $key -Force | Out-Null
                             }
                             New-ItemProperty -Path $key -Name $item.ValueName -Value $item.ValueData -PropertyType String -Force | Out-Null
-                            return 0
+                            0
                         }
                     }
-                    $job = Start-Job -ScriptBlock $jobScript -ArgumentList $item
-                    $jobs += @{
-                        Name = $item.Name
-                        Job  = $job
-                    }
+                }
+                $jobs += @{
+                    Name = $item.Name
+                    Job  = Start-Job -ScriptBlock $jobScript -ArgumentList $item
                 }
             }
-        }    
+        }
+    }
 
     foreach ($jobInfo in $jobs) {
         $job = $jobInfo.Job
         $itemName = $jobInfo.Name
         $exitCode = Receive-Job -Job $job -Wait
 
+        $console.AppendText("$($itemName) ")
         switch ($exitCode) {
-            0 { $console.AppendText("$($itemName) Installed successfully!`n") }
-            -1978335189 { $console.AppendText("No updates Found for $($itemName).`n") }
-            -1978335215 { $console.AppendText("$($itemName) Not Found.`n") }
-            740 { $console.AppendText("$($itemName) is already installed.`n") }
-            default { $console.AppendText("$($itemName) Failed with $($exitCode).`n") }
+            0 { $console.AppendText("Installed successfully!`n") }
+            1 { $console.AppendText("Already installed.`n") }
+            2 { $console.AppendText("Failed to install.`n") }
+            -1978335189 { $console.AppendText("No updates found.`n") }
+            -1978335215 { $console.AppendText("Not Found.`n") }
+            740 { $console.AppendText("Already installed.`n") }
+            default { $console.AppendText("Failed with $($exitCode).`n") }
         }
 
         $progressBar.Value += $progressBar.Step
@@ -158,9 +169,10 @@ function InstallSoftware {
     Start-Sleep -Milliseconds 1000
     $progressBar.Visible = $false
     Start-Sleep -Milliseconds 1000
-    $console.AppendText("`n`n")
     $console.AppendText("`nReady!`n")
 }
+
+
 
 function Add-InstallButton {
     param(
@@ -180,7 +192,6 @@ function Add-InstallButton {
     })
     $form.Controls.Add($button)
 }
-
 
 $form = New-Object System.Windows.Forms.Form -Property @{
     Text = "Software Installer"
@@ -211,7 +222,7 @@ $console = New-Object System.Windows.Forms.TextBox -Property @{
     ReadOnly = $true
     ScrollBars = "Vertical"
     WordWrap = $true
-    Font = New-Object System.Drawing.Font("Consolas", 10)
+    Font = New-Object System.Drawing.Font("Consolas", 8)
     Location = New-Object System.Drawing.Point(10, 190)
     Size = New-Object System.Drawing.Size(300, 50)
 }
