@@ -34,6 +34,10 @@ $softwareOptions = Get-SoftwareOptions
         <ProgressBar Name="ProgressBar" Margin="0,0,0,5" VerticalAlignment="Bottom" Height="20" Width="115" Visibility="Visible" />
         <Button Name="InstallButton" Content="Install" HorizontalAlignment="Right" Margin="0,0,5,5" VerticalAlignment="Bottom" Width="75" />
     </Grid>
+    <Grid>
+    <TabControl Name="TabControl" Margin="5,5,5,65" />
+    </Grid>
+
 </Window>
 "@
 

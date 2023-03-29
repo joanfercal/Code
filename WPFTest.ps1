@@ -264,3 +264,30 @@ $installButton.Add_Click({
 
 
 $form.ShowDialog() | Out-Null
+
+
+
+
+# Create the WPF form
+#OLD CODE
+# [xml]$xaml = @"
+# <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+#         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+#         Title="Software Installer" Height="300" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+#   <Grid>
+#     <Grid.RowDefinitions>
+#       <RowDefinition Height="*" />
+#       <RowDefinition Height="Auto" />
+#       <RowDefinition Height="Auto" />
+#     </Grid.RowDefinitions>
+#     <TabControl x:Name="tabControl" Grid.Row="0" Margin="5" TabStripPlacement="Top">
+#       <!-- Tabs will be added dynamically -->
+#     </TabControl>
+#     <TextBox x:Name="consoleTextBox" Grid.Row="1" Margin="5" Height="40" IsReadOnly="True" VerticalScrollBarVisibility="Auto" />
+#     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+#       <Button x:Name="checkAllButton" Content="Check All" HorizontalAlignment="Left" Margin="0,0,5,5" Width="75" />
+#       <Button x:Name="installButton" Content="Install" HorizontalAlignment="Right" Margin="0,0,5,5" Width="75" />
+#     </StackPanel>
+#   </Grid>
+# </Window>
+# "@
