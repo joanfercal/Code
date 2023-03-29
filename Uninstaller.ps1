@@ -29,10 +29,22 @@ $window = [Windows.Markup.XamlReader]::Load($reader)
 $softwareList = $window.FindName('SoftwareList')
 $uninstallButton = $window.FindName('UninstallButton')
 
-# Function to populate software list
+# Function to get installed software
 function Get-InstalledSoftware {
-    Get-WmiObject -Class Win32_Product | Select-Object Name, IdentifyingNumber
+    $softwarePaths = @(
+        'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
+        'HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*'
+    )
+
+    $installedSoftware = foreach ($path in $softwarePaths) {
+        Get-ItemProperty -Path $path -ErrorAction SilentlyContinue |
+        Where-Object { $null -ne $_.DisplayName } |
+        Select-Object DisplayName, UninstallString, @{Name='IdentifyingNumber'; Expression={$_.PSChildName}}
+    }
+
+    $installedSoftware | Sort-Object -Property DisplayName
 }
+
 
 # Function to update the checkboxes
 function Update-Checkboxes {
@@ -40,7 +52,7 @@ function Update-Checkboxes {
 
     Get-InstalledSoftware | ForEach-Object {
         $checkbox = New-Object System.Windows.Controls.CheckBox
-        $checkbox.Content = $_.Name
+        $checkbox.Content = $_.DisplayName
         $checkbox.Tag = $_.IdentifyingNumber
         $softwareList.AddChild($checkbox)
     }
@@ -52,12 +64,23 @@ function Uninstall-SelectedSoftware {
         $guid = $_.Tag
         $name = $_.Content
         Write-Host "Uninstalling $name..."
-        $wmiObject = Get-WmiObject -Class Win32_Product -Filter "IdentifyingNumber='$guid'"
-        Invoke-WmiMethod -InputObject $wmiObject -Name 'Uninstall'
+
+        $software = Get-InstalledSoftware | Where-Object { $_.IdentifyingNumber -eq $guid }
+        if ($software -and $software.UninstallString) {
+            $uninstallString = $software.UninstallString -replace '/I', '/X' -replace '/i', '/x'
+            
+            if ($uninstallString -match 'msiexec.exe') {
+                $uninstallArgs = $uninstallString.Split(' ', 2)[1] + " /qn /norestart"
+                Start-Process "msiexec.exe" -ArgumentList $uninstallArgs -Wait -NoNewWindow
+            }
+        }
+        
     }
 
     Update-Checkboxes
 }
+
+
 
 # Populate the software list
 Update-Checkboxes

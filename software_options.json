@@ -9,7 +9,13 @@
         {"Name": "Malwarebytes", "WingetName": "Malwarebytes.Malwarebytes"},
         {"Name": "Bitdefender", "WingetName": "Bitdefender.Bitdefender"},
         {"Name": "WhatsApp", "WingetName": "WhatsApp.WhatsApp"},
-        {"Name": "Messenger", "WingetName": "Facebook.Messenger"}
+        {"Name": "Messenger", "WingetName": "Facebook.Messenger"},
+        {"Name": "AnyDesk", "WingetName": "AnyDeskSoftwareGmbH.AnyDesk"},
+        {"Name": "Bitwarden", "WingetName": "Bitwarden.Bitwarden"},
+        {"Name": "Inkscape", "WingetName": "Inkscape.Inkscape"},
+        {"Name": "Gimp", "WingetName": "GIMP.GIMP"},
+        {"Name": "Paint.NET", "WingetName": "dotPDN.PaintDotNet"}
+        
     ],
     "Power": [
         {"Name": "Everything", "WingetName": "voidtools.Everything"},
@@ -42,7 +48,12 @@
         {"Name": "Process Explorer", "WingetName": "Microsoft.Sysinternals.ProcessExplorer"},
         {"Name": "Autoruns", "WingetName": "Microsoft.Sysinternals.Autoruns"},
         {"Name": "SQL Server 2019", "WingetName": "Microsoft.SQLServer.2019.Express"},
-        {"Name": "VS Community 2022", "WingetName": "Microsoft.VisualStudio.2022.Community"}
+        {"Name": "VS Community 2022", "WingetName": "Microsoft.VisualStudio.2022.Community"},
+        {"Name": "Volumouse", "WingetName": "NirSoft.Volumouse"},
+        {"Name": "NodeJS", "WingetName": "OpenJS.NodeJS"},
+        {"Name": "Sublime Text", "WingetName": "SublimeHQ.SublimeText.4"},
+        {"Name": "PuTTY", "WingetName": "PuTTY.PuTTY"},
+        {"Name": "NK2Edit", "WingetName": "NirSoft.NK2Edit"}
     ],
     "Utilities": [
         {"Name": "qBittorrent", "WingetName": "qbittorrent.qBittorrent"},
@@ -54,7 +65,17 @@
         {"Name": "TeamViewer", "WingetName": "TeamViewer.TeamViewer"},
         {"Name": "WinDynamicDesktop", "WingetName": "t1m0thyj.WinDynamicDesktop"},
         {"Name": "WingetUI", "WingetName": "SomePythonThings.WingetUIStore"},
-        {"Name": "Mouse W/O Borders", "WingetName": "Microsoft.MouseWithoutBorders"}
+        {"Name": "Mouse W/O Borders", "WingetName": "Microsoft.MouseWithoutBorders"},
+        {"Name": "WhoisThisDomain", "WingetName": "NirSoft.WhoisThisDomain"},
+        {"Name": "VideoCacheView", "WingetName": "NirSoft.VideoCacheView"},
+        {"Name": "ShellExView", "WingetName": "NirSoft.ShellExView"},
+        {"Name": "IPNetInfo", "WingetName": "NirSoft.IPNetInfo"},
+        {"Name": "DownTester", "WingetName": "NirSoft.DownTester"},
+        {"Name": "BlueScreenView", "WingetName": "NirSoft.BlueScreenView"},
+        {"Name": "NirCmd", "WingetName": "NirSoft.NirCmd"},
+        {"Name": "AdvancedRun", "WingetName": "NirSoft.AdvancedRun"},
+        {"Name": "Wireless Network Watcher", "WingetName": "NirSoft.WirelessNetworkWatcher"},
+        {"Name": "Balena Etcher", "WingetName": "Balena.Etcher"}        
     ],
     "Office": [
         {"Name": "Microsoft Teams", "WingetName": "Microsoft.Teams"},

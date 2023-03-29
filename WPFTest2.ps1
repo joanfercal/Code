@@ -1,21 +1,6 @@
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName PresentationCore
 Add-Type -AssemblyName WindowsBase
-Add-Type -AssemblyName System.Windows.Forms
-Add-Type -AssemblyName System.Drawing
-
-[xml]$xaml = @"
-<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        Title="Software Installer" Height="300" Width="300">
-    <Grid>
-        <TabControl Name="TabControl" Margin="5,5,5,65" />
-        <TextBox Name="Console" Margin="5,5,5,30" VerticalAlignment="Bottom" Height="30" IsReadOnly="True" Padding="5,5,5,5" />
-        <Button Name="CheckAllButton" Content="Check All" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalAlignment="Bottom" Width="75" />
-        <ProgressBar Name="ProgressBar" Margin="0,0,0,5" VerticalAlignment="Bottom" Height="20" Width="115" Visibility="Visible" />
-        <Button Name="InstallButton" Content="Install" HorizontalAlignment="Right" Margin="0,0,5,5" VerticalAlignment="Bottom" Width="75" />
-    </Grid>
-</Window>
-"@
 
 function ConvertTo-Hashtable {
     param (
@@ -32,15 +17,29 @@ function ConvertTo-Hashtable {
 
 function Get-SoftwareOptions {
     $url = "bit.ly/3JSAhph"
+    
     $jsonContent = (Invoke-WebRequest -Uri $url).Content
     $jsonContent | ConvertFrom-Json | ConvertTo-Hashtable
 }
 
 $softwareOptions = Get-SoftwareOptions
 
+[xml]$xaml = @"
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        Title="Software Installer" Height="300" Width="300">
+    <Grid>
+        <TabControl Name="TabControl" Margin="5,5,5,65" />
+        <TextBox Name="Console" Margin="5,5,5,30" VerticalAlignment="Bottom" Height="30" IsReadOnly="True" Padding="5,5,5,5" />
+        <Button Name="CheckAllButton" Content="Check All" HorizontalAlignment="Left" Margin="5,0,0,5" VerticalAlignment="Bottom" Width="75" />
+        <ProgressBar Name="ProgressBar" Margin="0,0,0,5" VerticalAlignment="Bottom" Height="20" Width="115" Visibility="Visible" />
+        <Button Name="InstallButton" Content="Install" HorizontalAlignment="Right" Margin="0,0,5,5" VerticalAlignment="Bottom" Width="75" />
+    </Grid>
+</Window>
+"@
 
 $reader = (New-Object System.Xml.XmlNodeReader $xaml)
 $form = [Windows.Markup.XamlReader]::Load($reader)
+
 $tabControl = $form.FindName('TabControl')
 $console = $form.FindName('Console')
 $checkAllButton = $form.FindName('CheckAllButton')
@@ -53,7 +52,7 @@ function Update-ProgressBar {
         [System.Windows.Controls.ProgressBar]$progressBar
     )
 
-    $progressBar.Maximum = ($tabControl.Controls | ForEach-Object { $_.Controls } | Where-Object { $_.GetType() -eq [System.Windows.Forms.CheckBox] -and $_.Checked }).Count
+    $progressBar.Maximum = ($tabControl.Items | ForEach-Object { $_.Content.Children } | Where-Object { $_.GetType() -eq [System.Windows.Controls.CheckBox] -and $_.IsChecked }).Count
 }
 
 function InstallSoftware {
@@ -62,31 +61,13 @@ function InstallSoftware {
         [Hashtable]$softwareOptions
     )
 
-    $totalItemsToInstall = 0
-    foreach ($tab in $tabControl.Items) {
-        foreach ($item in $softwareOptions[$tab.Header]) {
-            # $checkBoxControl = $tab.Content.Children | Where-Object { $_.Name -eq $item.ControlName }
-            $checkBoxControl = $tab.Content.Children | Where-Object { $_.Content -eq $item.Name }
-            if ($checkBoxControl.IsChecked) {
-                $totalItemsToInstall++
-            }
-        }
-    }
-
-
-    $console.Clear()
-    
     $jobs = @()
     $totalItemsToInstall = 0
     foreach ($tab in $tabControl.Items) {
-
-
         foreach ($item in $softwareOptions[$tab.Header]) {
-            # $checkBoxControl = $tab.Content.Children | Where-Object { $_.Name -eq $item.ControlName }
-            # $checkBoxControl = $tab.Content.Children | Where-Object { $_.Content -eq $item.Name }
             $checkBoxControl = $tab.Content.Children | Where-Object { $_ -is [System.Windows.Controls.CheckBox] -and $_.Content -eq $item.Name }
             if ($checkBoxControl.IsChecked -eq $true) {
-                Write-Console "("Installing $($item.Name)")"
+                Write-Console "Installing $($item.Name)"
                 $totalItemsToInstall++
                 $progressBar.Maximum = $totalItemsToInstall
 
@@ -97,11 +78,10 @@ function InstallSoftware {
                             $wingetProcess = Start-Process -FilePath 'winget' -ArgumentList "install --id $($item.WingetName) --accept-package-agreements --accept-source-agreements -h" -PassThru -Wait -WindowStyle Hidden
                             $wingetProcess.WaitForExit()
                             $wingetProcess.ExitCode
-                        }
-                        'FeatureName' {
+                            }
+                            'FeatureName' {
                             $featureName = $item.FeatureName
                             $featureState = (Get-WindowsOptionalFeature -Online -FeatureName $featureName).State
-                        
                             if ($featureState -eq 'Disabled') {
                                 Enable-WindowsOptionalFeature -Online -FeatureName $featureName -All -NoRestart
                                 0
@@ -111,7 +91,7 @@ function InstallSoftware {
                                 2
                             }
                         }
-
+                        
                         'Key' {
                             $key = $item.Key -replace "HKEY_LOCAL_MACHINE", "HKLM:"
                             if (-not (Test-Path -Path $key)) {
@@ -136,38 +116,33 @@ function InstallSoftware {
             }
         }
     }
-
+    
     foreach ($jobInfo in $jobs) {
         $job = $jobInfo.Job
         $itemName = $jobInfo.Name
         $exitCode = Receive-Job -Job $job -Wait
-
-        Write-Console -message "$($itemName) "
+    
+        Write-Console "$($itemName) "
         switch ($exitCode) {
-            0 { Write-Console -message "Installed successfully!"}
-            1 { Write-Console -message "Already installed." }
-            2 { Write-Console -message "Failed to install." }
-            740 { Write-Console -message "Already installed." }
-            -1978335189 { Write-Console -message "No updates found." }
-            -1978335215 { Write-Console -message "Not Found." }
-            default { Write-Console -message "Failed with $($exitCode)." }
+            0 { Write-Console "Installed successfully!"}
+            1 { Write-Console "Already installed." }
+            2 { Write-Console "Failed to install." }
+            740 { Write-Console "Already installed." }
+            -1978335189 { Write-Console "No updates found." }
+            -1978335215 { Write-Console "Not Found." }
+            default { Write-Console "Failed with $($exitCode)." }
         }
-
-        $progressBar.Value = $progressBar.Value + 1
+    
+        $progressBar.Value += 1
         [System.Windows.Threading.Dispatcher]::CurrentDispatcher.Invoke([System.Windows.Threading.DispatcherPriority]::Background, [action]{$null})
-        [System.Windows.Forms.Application]::DoEvents()
     }
-
+    
     $progressBar.Value = $progressBar.Maximum
-    Write-Console -message "Done!"
-    Start-Sleep -Milliseconds 1000
-    Start-Sleep -Milliseconds 1000
-    Write-Console -message "Ready!"
-    $progressBar.Visibility = [System.Windows.Visibility]::Hidden
+    Write-Console "Done!"
+    Start-Sleep -Seconds 2
+    Write-Console "Ready!"
     
 }
-
-
 
 function Write-Console {
     param(
@@ -175,92 +150,54 @@ function Write-Console {
     )
 
     $form.Dispatcher.Invoke([action] {
-        $console.AppendText("$message`r")
+        $console.AppendText("$message`r`n")
         $console.ScrollToEnd()
     }, [System.Windows.Threading.DispatcherPriority]::Background)
 }
 
 
-function Get-SelectedOptions {
-    param(
-        [System.Windows.Controls.TabItem]$tab
-    )
-
-    $selectedOptions = @()
-    foreach ($control in $tab.Content.Children) {
-        if ($control.IsChecked) {
-            $selectedOptions += $control.Name
-        }
-    }
-
-    $selectedOptions
-}
-
-
-function ToggleCheckboxes {
-    param(
-        [System.Windows.Controls.TabItem]$tab
-    )
-
-    $isChecked = $true
-    foreach ($control in $tab.Content.Children) {
-        if ($control.IsChecked) {
-            $isChecked = $false
-            break
-        }
-    }
-
-    foreach ($control in $tab.Content.Children) {
-        $control.IsChecked = $isChecked
-    }
-}
-
-
-
 foreach ($group in $softwareOptions.GetEnumerator()) {
     $tabItem = New-Object System.Windows.Controls.TabItem
     $tabItem.Header = $group.Name
-
     $scrollViewer = New-Object System.Windows.Controls.ScrollViewer
-    $tabItem.Content = $scrollViewer
+$tabItem.Content = $scrollViewer
 
-    $stackPanel = New-Object System.Windows.Controls.StackPanel
-    $scrollViewer.Content = $stackPanel
+$stackPanel = New-Object System.Windows.Controls.StackPanel
+$scrollViewer.Content = $stackPanel
 
-    foreach ($option in $group.Value) {
-        $checkBox = New-Object System.Windows.Controls.CheckBox
-        $checkBox.Content = $option.Name
-        $stackPanel.Children.Add($checkBox)
+foreach ($option in $group.Value) {
+    $checkBox = New-Object System.Windows.Controls.CheckBox
+    $checkBox.Content = $option.Name
+    $stackPanel.Children.Add($checkBox)
     }
-
     $tabControl.Items.Add($tabItem)
 }
 
-
-
-function ToggleCheckboxes {
-    param($tab)
-
-    $checkBoxes = $tab.Controls | Where-Object { $_ -is [System.Windows.Forms.CheckBox] }
-
-    if ($checkBoxes) {
-        $areAllChecked = $checkBoxes | ForEach-Object { $_.Checked } -notcontains $false
-
-        foreach ($checkBox in $checkBoxes) {
-            $checkBox.Checked = -not $areAllChecked
-        }
-    }
-}
-
 $checkAllButton.Add_Click({
-    $currentTab = $tabControl.SelectedTab
-    ToggleCheckboxes -tab $currentTab
+foreach ($tab in $tabControl.Items) {
+foreach ($checkBox in $tab.Content.Content.Children) {
+$checkBox.IsChecked = $true
+}
+}
+Update-ProgressBar -tabControl $tabControl -progressBar $progressBar
 })
-
 
 $installButton.Add_Click({
-    InstallSoftware -tabControl $tabControl -softwareOptions $softwareOptions
+$installButton.IsEnabled = $false
+$checkAllButton.IsEnabled = $false
+$progressBar.Value = 0
+InstallSoftware -tabControl $tabControl -softwareOptions $softwareOptions
+$installButton.IsEnabled = $true
+$checkAllButton.IsEnabled = $true
 })
 
+$form.Add_Closing({
+if ($jobs | Where-Object { $.Job.State -eq 'Running' }) {
+$result = [System.Windows.MessageBox]::Show('Some installations are still running. Are you sure you want to close the application?', 'Confirm', [System.Windows.MessageBoxButton]::YesNo, [System.Windows.MessageBoxImage]::Warning)
+if ($result -eq 'No') {
+$.Cancel = $true
+}
+}
+})
 
 $form.ShowDialog() | Out-Null
