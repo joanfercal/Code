@@ -1,11 +1,9 @@
 Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase, System.Windows.Forms
 # Create WPF Window
-# $xaml = Get-Content -Path "Window.xaml"
-$xml = (Invoke-WebRequest -Uri "bit.ly/3nnbUZ4").Content
-$xaml = [xml]$xml
+$xaml = (Invoke-WebRequest -Uri "bit.ly/3nnbUZ4").Content
+$xmlDoc = [xml]$xaml
 # Window variables
-$reader = (New-Object System.Xml.XmlNodeReader $xaml)
-$window = [Windows.Markup.XamlReader]::Load($reader)
+$window = [Windows.Markup.XamlReader]::Parse($xmlDoc.InnerXml)
 # Control variables
 $tabControl = $window.FindName('tabControl')
 $consoleTextBox = $window.FindName('consoleTextBox')
