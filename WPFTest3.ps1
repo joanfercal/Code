@@ -1,9 +1,11 @@
 Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase, System.Windows.Forms
-# 3M19MAs for dark mode 3nnbUZ4 for light mode
-$xaml = (Invoke-WebRequest -Uri "bit.ly/3nnbUZ4").Content
+# Create WPF Window
+# $xaml = Get-Content -Path "Window.xaml"
+$xaml = Invoke-WebRequest -Uri "bit.ly/3nnbUZ4" | Select-Object -ExpandProperty Content
 # Window variables
 $reader = (New-Object System.Xml.XmlNodeReader $xaml)
 $window = [Windows.Markup.XamlReader]::Load($reader)
+# Control variables
 $tabControl = $window.FindName('tabControl')
 $consoleTextBox = $window.FindName('consoleTextBox')
 $checkAllButton = $window.FindName('checkAllButton')
