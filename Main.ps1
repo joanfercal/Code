@@ -22,11 +22,11 @@ $button2.Add_Click({
 })
 
 $button3 = New-Object System.Windows.Controls.Button
-$button3.Content = "Launcher"
+$button3.Content = "Version 2.0 Alpha"
 $button3.Height = 50
 $button3.Margin = New-Object System.Windows.Thickness 0
 $button3.Add_Click({
-    iwr -useb bit.ly/40sK7Fy | iex
+    iwr -useb bit.ly/40vGrms | iex
 })
 
 $stackPanel = New-Object System.Windows.Controls.StackPanel
