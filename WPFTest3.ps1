@@ -1,7 +1,7 @@
 Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase, System.Windows.Forms
 # Create WPF Window
 # $xaml = Get-Content -Path "Window.xaml"
-$xaml = (Invoke-WebRequest -Uri "bit.ly/3JSAhph").Content
+$xaml = (Invoke-WebRequest -Uri "bit.ly/3nnbUZ4").Content
 
 # Download the XML file from the URL
 # $url = "http://bit.ly/3JSAhph"
