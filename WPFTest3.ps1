@@ -92,7 +92,7 @@ $installButton.Add_Click({
       $WingetName = $_.WingetName
       $Name = $_.Name
       $consoleTextBox.AppendText("Installing $Name...`n")
-      winget install $WingetName
+      winget install --id $WingetName --accept-package-agreements --accept-source-agreements -h
       $consoleTextBox.AppendText("Done`n")
     }
     # Install Windows Optional Components
