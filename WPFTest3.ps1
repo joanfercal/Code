@@ -1,37 +1,9 @@
 Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase, System.Windows.Forms
-# Create WPF Window
-# $xaml = Get-Content -Path "Window.xaml"
+# 3M19MAs for dark mode 3nnbUZ4 for light mode
 $xaml = (Invoke-WebRequest -Uri "bit.ly/3nnbUZ4").Content
-
-# Download the XML file from the URL
-# $url = "http://bit.ly/3JSAhph"
-# Convert the XML string to an XML object
-# $xmlString = Invoke-WebRequest -Uri $url | Select-Object -ExpandProperty Content
-# [xml]$xaml = @"
-# <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-#         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-#         Title="Software Installer" Height="300" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" >
-#   <Grid>
-#     <Grid.RowDefinitions>
-#       <RowDefinition Height="3*" />
-#       <RowDefinition Height="Auto" />
-#     </Grid.RowDefinitions>
-#     <TabControl x:Name="tabControl" Grid.Row="0" Margin="5" TabStripPlacement="Top" BorderThickness="1">
-#       <!-- Tabs will be added dynamically -->
-#     </TabControl>
-#     <TextBox x:Name="consoleTextBox" Padding="0,0,0,10" Grid.Row="1" Margin="5,5,80,5" Height="50" IsReadOnly="True" BorderThickness="1" />
-#     <ProgressBar x:Name="progressBar" Grid.Row="1" Margin="5,5,80,5" Height="10"  VerticalAlignment="Bottom" Visibility="Hidden" BorderThickness="1" Foreground="#2E2E2E"/>
-#     <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Center">
-#       <Button x:Name="checkAllButton" Content="Check All" Margin="0,0,5,0" Width="75" Height="25" Cursor="Hand" BorderThickness="1"/>
-#       <Button x:Name="installButton" Content="Install" Margin="0,0,5,0" Width="75" Height="25" Cursor="Hand" BorderThickness="1"/>
-#     </StackPanel>
-#   </Grid>
-# </Window>
-# "@
 # Window variables
 $reader = (New-Object System.Xml.XmlNodeReader $xaml)
 $window = [Windows.Markup.XamlReader]::Load($reader)
-# Control variables
 $tabControl = $window.FindName('tabControl')
 $consoleTextBox = $window.FindName('consoleTextBox')
 $checkAllButton = $window.FindName('checkAllButton')
