@@ -34,7 +34,7 @@ $button4.Content = "Version 2.0 Beta"
 $button4.Height = 35
 $button4.Margin = New-Object System.Windows.Thickness 0
 $button4.Add_Click({
-    iwr -useb bit.ly/40vGrms | iex
+    iwr -useb bit.ly/3JVqrTl | iex
 })
 
 $stackPanel = New-Object System.Windows.Controls.StackPanel
