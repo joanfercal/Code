@@ -1,7 +1,8 @@
 Add-Type -AssemblyName PresentationFramework, PresentationCore, WindowsBase, System.Windows.Forms
 # Create WPF Window
 # $xaml = Get-Content -Path "Window.xaml"
-$xaml = Invoke-WebRequest -Uri "bit.ly/3nnbUZ4" | Select-Object -ExpandProperty Content
+$xml = (Invoke-WebRequest -Uri "bit.ly/3nnbUZ4").Content
+$xaml = [xml]$xml
 # Window variables
 $reader = (New-Object System.Xml.XmlNodeReader $xaml)
 $window = [Windows.Markup.XamlReader]::Load($reader)
