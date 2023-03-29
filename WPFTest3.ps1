@@ -69,25 +69,29 @@ $data.PSObject.Properties | ForEach-Object {
 # Check All button functionality
 $checkAllButton.Add_Click({
   $currentTab = $tabControl.SelectedItem
-  $allChecked = $currentTab.Content.Children | ForEach-Object { $_.IsChecked } | Where-Object { $_ -eq $true } | Measure-Object | Select-Object -ExpandProperty Count
+  $stackPanel = $currentTab.Content.Content
+  $allChecked = $stackPanel.Children | ForEach-Object { $_.IsChecked } | Where-Object { $_ -eq $true } | Measure-Object | Select-Object -ExpandProperty Count
   $checkValue = $true
-  if ($allChecked -eq $currentTab.Content.Children.Count) {
+  if ($allChecked -eq $stackPanel.Children.Count) {
     $checkValue = $false
   }
 
-  $currentTab.Content.Children | ForEach-Object { $_.IsChecked = $checkValue }
+  $stackPanel.Children | ForEach-Object { $_.IsChecked = $checkValue }
 })
+
 
 # WORKING CODE
 # Install button functionality
 $installButton.Add_Click({
-  $selectedItems = $tabControl.Items | ForEach-Object { $_.Content.Children | Where-Object { $_.IsChecked -eq $true } | Select-Object -ExpandProperty Tag }
+  # $selectedItems = $tabControl.Items | ForEach-Object { $_.Content.Children | Where-Object { $_.IsChecked -eq $true } | Select-Object -ExpandProperty Tag }
+  $selectedItems = $tabControl.Items | ForEach-Object { $_.Content.Content.Children | Where-Object { $_.IsChecked -eq $true } | Select-Object -ExpandProperty Tag }
   $selectedItems | ForEach-Object {
 
     # Install Winget Packages
     if ($_.PSObject.Properties.Name -eq 'WingetName') {
       $WingetName = $_.WingetName
-      $consoleTextBox.AppendText("Installing $WingetName...`n")
+      $Name = $_.Name
+      $consoleTextBox.AppendText("Installing $Name...`n")
       winget install $WingetName
       $consoleTextBox.AppendText("Done`n")
     }
@@ -96,7 +100,7 @@ $installButton.Add_Click({
       $featureName = $_.FeatureName
       $feature = Get-WindowsOptionalFeature -Online -FeatureName $featureName
       if ($feature.State -eq 'Disabled') {
-        $consoleTextBox.AppendText("Installing $featureName...")
+        $consoleTextBox.AppendText("Installing $featureName...`n")
         Install-WindowsOptionalFeature -Online -FeatureName $featureName -NoRestart
         $consoleTextBox.AppendText("Done`n")
       }
@@ -123,7 +127,7 @@ $installButton.Add_Click({
       $key = $_.Key
       $valueName = $_.ValueName
       $valueData = $_.ValueData
-      $consoleTextBox.AppendText("Installing $($_.Name)...")
+      $consoleTextBox.AppendText("Installing $($_.Name)...`n")
       New-ItemProperty -Path $key -Name $valueName -Value $valueData -PropertyType String -Force
       $consoleTextBox.AppendText("Done`n")
     }
