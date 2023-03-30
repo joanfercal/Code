@@ -1,42 +1,43 @@
 Add-Type -AssemblyName PresentationFramework
 
-$window = New-Object System.Windows.Window
-$window.Title = "Run"
-$window.Width = 200
-$window.Height = 188
+$window = New-Object System.Windows.Window -Property @{
+    Title = "Run"
+    Width = 200
+    Height = 200
+    WindowStartupLocation = "CenterScreen"
+    ResizeMode="NoResize"
+}
 
-$button1 = New-Object System.Windows.Controls.Button
-$button1.Content = "Installer"
-$button1.Height = 35
-$button1.Margin = New-Object System.Windows.Thickness 0
-$button1.Add_Click({iwr -useb bit.ly/Automatech-Installer | iex})
+$grid = New-Object System.Windows.Controls.Grid
 
-$button2 = New-Object System.Windows.Controls.Button
-$button2.Content = "Uninstaller"
-$button2.Height = 35
-$button2.Margin = New-Object System.Windows.Thickness 0
-$button2.Add_Click({iwr -useb bit.ly/Automatech-Uninstaller | iex})
+for ($i = 0; $i -lt 2; $i++) {
+    $rowDefinition = New-Object System.Windows.Controls.RowDefinition
+    $grid.RowDefinitions.Add($rowDefinition)
+    $columnDefinition = New-Object System.Windows.Controls.ColumnDefinition
+    $grid.ColumnDefinitions.Add($columnDefinition)
+}
 
-$button3 = New-Object System.Windows.Controls.Button
-$button3.Content = "None"
-$button3.Height = 35
-$button3.Margin = New-Object System.Windows.Thickness 0
-$button3.Add_Click({})
+$buttonConfigs = @(
+    @{Name = "Installer"; Action = {Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression}}
+    @{Name = "Uninstaller"; Action = {Invoke-WebRequest -useb bit.ly/Automatech-Uninstaller | Invoke-Expression}}
+    @{Name = "Button 3"; Action = {Write-Host "Button 3 was clicked."}}
+    @{Name = "Button 4"; Action = {Write-Host "Button 4 was clicked."}}
+)
 
-$button4 = New-Object System.Windows.Controls.Button
-$button4.Content = "None"
-$button4.Height = 35
-$button4.Margin = New-Object System.Windows.Thickness 0
-$button4.Add_Click({})
+$buttons = @()
+$buttonConfigs.ForEach({
+    $button = New-Object System.Windows.Controls.Button
+    $button.Content = $_.Name
+    $button.Add_Click($_.Action)
+    $buttons += $button
+})
 
-$stackPanel = New-Object System.Windows.Controls.StackPanel
-$stackPanel.VerticalAlignment = [System.Windows.VerticalAlignment]::Center
-$stackPanel.Children.Add($button1)
-$stackPanel.Children.Add($button2)
-$stackPanel.Children.Add($button3)
-$stackPanel.Children.Add($button4)
+$grid.Children.Clear()
+for ($i = 0; $i -lt $buttons.Count; $i++) {
+    $grid.Children.Add($buttons[$i])
+    [System.Windows.Controls.Grid]::SetRow($buttons[$i], [math]::Floor($i / 2))
+    [System.Windows.Controls.Grid]::SetColumn($buttons[$i], $i % 2)
+}
 
-
-$window.Content = $stackPanel
-
+$window.Content = $grid
 $window.ShowDialog() | Out-Null
