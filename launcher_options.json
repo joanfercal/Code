@@ -1,0 +1,93 @@
+{
+    "buttons": [
+        {
+            "Name": "Installer",
+            "Image": "unnamed.png",
+            "Action": {
+                "Command": "Invoke-WebRequest",
+                "Args": [
+                    "-useb",
+                    "bit.ly/Automatech-Installer"
+                ]
+            }
+        },
+        {
+            "Name": "Uninstaller",
+            "Image": "unnamed.png",
+            "Action": {
+                "Command": "Invoke-WebRequest",
+                "Args": [
+                    "-useb",
+                    "bit.ly/Automatech-Uninstaller"
+                ]
+            }
+        },
+        {
+            "Name": "PVE",
+            "Image": "unnamed.png",
+            "Action": {
+                "Command": "Edge",
+                "Args": [
+                    "https://pve.lan:8006/"
+                ]
+            }
+        },
+        {
+            "Name": "PVE",
+            "Image": "unnamed.png",
+            "Action": {
+                "Command": "Edge",
+                "Args": [
+                    "https://chat.openai.com/"
+                ]
+            }
+        },
+        {
+            "Name": "PVE",
+            "Image": "unnamed.png",
+            "Action": {
+                "Command": "Edge",
+                "Args": [
+                    "https://pve.lan:8006/"
+                ]
+            }
+        },
+        {
+            "Name": "PVE",
+            "Image": "unnamed.png",
+            "Action": {
+                "Command": "Edge",
+                "Args": [
+                    "https://pve.lan:8006/"
+                ]
+            }
+        },
+        {
+            "Name": "PVE",
+            "Image": "unnamed.png",
+            "Action": {
+                "Command": "Edge",
+                "Args": [
+                    "https://pve.lan:8006/"
+                ]
+            }
+        },
+        {
+            "Name": "PVE",
+            "Image": "unnamed.png",
+            "Action": {
+                "Command": "Edge",
+                "Args": [
+                    "https://pve.lan:8006/"
+                ]
+            }
+        },
+        {
+            "Name": "Close",
+            "Image": "unnamed.png",
+            "Action": {
+                "Command": "CloseWindow"
+            }
+        }
+    ]
+}
