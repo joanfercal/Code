@@ -1,4 +1,5 @@
 Add-Type -AssemblyName PresentationFramework
+function Edge {Start-Process msedge -ArgumentList "--edge-frame", "--app=$($args[0])" -WindowStyle Hidden}
 
 $window = New-Object System.Windows.Window -Property @{
     Title = "Run"
@@ -6,6 +7,8 @@ $window = New-Object System.Windows.Window -Property @{
     Height = 200
     WindowStartupLocation = "CenterScreen"
     ResizeMode="NoResize"
+    # WindowStyle = "None"
+    Topmost = $true
 }
 
 $grid = New-Object System.Windows.Controls.Grid
@@ -20,8 +23,8 @@ for ($i = 0; $i -lt 2; $i++) {
 $buttonConfigs = @(
     @{Name = "Installer"; Action = {Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression}}
     @{Name = "Uninstaller"; Action = {Invoke-WebRequest -useb bit.ly/Automatech-Uninstaller | Invoke-Expression}}
-    @{Name = "Button 3"; Action = {Write-Host "Button 3 was clicked."}}
-    @{Name = "Button 4"; Action = {Write-Host "Button 4 was clicked."}}
+    @{Name = "PVE"; Action = {Edge 'https://pve.lan:8006/'}}
+    @{Name = "Close"; Action = {$window.Close()}}
 )
 
 $buttons = @()
@@ -29,7 +32,14 @@ $buttonConfigs.ForEach({
     $button = New-Object System.Windows.Controls.Button
     $button.Content = $_.Name
     $button.Add_Click($_.Action)
+    $button.Cursor = [System.Windows.Input.Cursors]::Hand
     $buttons += $button
+    # $button.BorderThickness = New-Object System.Windows.Thickness 1
+    # $button.BorderBrush = New-Object System.Windows.Media.SolidColorBrush -ArgumentList ([System.Windows.Media.Colors]::Black)
+    # $button.Background = New-Object System.Windows.Media.SolidColorBrush -ArgumentList ([System.Windows.Media.Colors]::Black)
+    # $button.Foreground = New-Object System.Windows.Media.SolidColorBrush -ArgumentList ([System.Windows.Media.Colors]::White)
+    # $button.FontSize = 16
+    # $button.Margin = New-Object System.Windows.Thickness 0
 })
 
 $grid.Children.Clear()
