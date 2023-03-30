@@ -9,13 +9,15 @@ Add-Type -AssemblyName PresentationFramework
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="1" Margin="0">
-            <StackPanel x:Name="SoftwareList" />
+        <ScrollViewer Grid.Row="2" Margin="0" VerticalScrollBarVisibility = "Auto">
+        <StackPanel x:Name="SoftwareList" />
         </ScrollViewer>
-        <Button Grid.Row="2" Content="Uninstall" Name="UninstallButton" Width="100" Height="30" Margin="5,5,5,5" HorizontalAlignment="Right" />
+        <TextBox Grid.Row="3" Name="SearchBar" Width="295" Height="25" Margin="5,5,5,5" HorizontalAlignment="Left"/>
+        <Button Grid.Row="3" Content="Uninstall" Name="UninstallButton" Width="75" Height="25" Margin="5,5,5,5" HorizontalAlignment="Right" />
     </Grid>
 </Window>
 "@
@@ -23,11 +25,11 @@ Add-Type -AssemblyName PresentationFramework
 # Create GUI from XAML
 $reader = (New-Object System.Xml.XmlNodeReader $xaml)
 $window = [Windows.Markup.XamlReader]::Load($reader)
+$searchBar = $window.FindName('SearchBar')
 
 # Define variables for UI elements
 $softwareList = $window.FindName('SoftwareList')
 $uninstallButton = $window.FindName('UninstallButton')
-$scrollViewer.VerticalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
 # Function to get installed software
 function Get-InstalledSoftware {
     $softwarePaths = @(
@@ -47,9 +49,12 @@ function Get-InstalledSoftware {
 
 # Function to update the checkboxes
 function Update-Checkboxes {
+    $searchQuery = $searchBar.Text
     $softwareList.Children.Clear()
 
-    Get-InstalledSoftware | ForEach-Object {
+    Get-InstalledSoftware |
+    Where-Object { $_.DisplayName -like "*$searchQuery*" } |
+    ForEach-Object {
         $checkbox = New-Object System.Windows.Controls.CheckBox
         $checkbox.Content = $_.DisplayName
         $checkbox.Tag = $_.IdentifyingNumber
@@ -76,10 +81,24 @@ function Uninstall-SelectedSoftware {
         
     }
 
-    Update-Checkboxes
+    # Update-Checkboxes
 }
 
+$searchTimer = New-Object System.Windows.Threading.DispatcherTimer
+$searchTimer.Interval = [TimeSpan]::FromMilliseconds(300)
+$searchTimer.Add_Tick({
+    $searchTimer.Stop()
+    Update-Checkboxes
+})
 
+# TextChanged event handler with a delay
+$searchBar.Add_TextChanged({
+    $searchTimer.Stop()
+    $searchTimer.Start()
+})
+
+$uninstallButton.Add_Click({ Uninstall-SelectedSoftware })
+# $searchBar.Add_TextChanged({ Update-Checkboxes })
 
 # Populate the software list
 Update-Checkboxes
