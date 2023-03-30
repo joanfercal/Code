@@ -34,12 +34,6 @@ $buttonConfigs.ForEach({
     $button.Add_Click($_.Action)
     $button.Cursor = [System.Windows.Input.Cursors]::Hand
     $buttons += $button
-    # $button.BorderThickness = New-Object System.Windows.Thickness 1
-    # $button.BorderBrush = New-Object System.Windows.Media.SolidColorBrush -ArgumentList ([System.Windows.Media.Colors]::Black)
-    # $button.Background = New-Object System.Windows.Media.SolidColorBrush -ArgumentList ([System.Windows.Media.Colors]::Black)
-    # $button.Foreground = New-Object System.Windows.Media.SolidColorBrush -ArgumentList ([System.Windows.Media.Colors]::White)
-    # $button.FontSize = 16
-    # $button.Margin = New-Object System.Windows.Thickness 0
 })
 
 $grid.Children.Clear()
