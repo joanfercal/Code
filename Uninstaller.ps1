@@ -5,18 +5,17 @@ Add-Type -AssemblyName PresentationFramework
 [xml]$xaml = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Uninstall Programs" Height="400" Width="400" ResizeMode="NoResize">
+        Title="Select Programs to Uninstall " Height="300" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock Text="Select Programs to Uninstall" FontWeight="Bold" Margin="10" />
-        <ScrollViewer Grid.Row="1" Margin="10">
+        <ScrollViewer Grid.Row="1" Margin="0">
             <StackPanel x:Name="SoftwareList" />
         </ScrollViewer>
-        <Button Grid.Row="2" Content="Uninstall" Name="UninstallButton" Width="100" Height="30" Margin="10" HorizontalAlignment="Right" />
+        <Button Grid.Row="2" Content="Uninstall" Name="UninstallButton" Width="100" Height="30" Margin="5,5,5,5" HorizontalAlignment="Right" />
     </Grid>
 </Window>
 "@
@@ -28,7 +27,7 @@ $window = [Windows.Markup.XamlReader]::Load($reader)
 # Define variables for UI elements
 $softwareList = $window.FindName('SoftwareList')
 $uninstallButton = $window.FindName('UninstallButton')
-
+$scrollViewer.VerticalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
 # Function to get installed software
 function Get-InstalledSoftware {
     $softwarePaths = @(
