@@ -23,7 +23,8 @@ for ($i = 0; $i -lt 2; $i++) {
 $buttonConfigs = @(
     @{Name = "Installer"; Action = {Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression}}
     @{Name = "Uninstaller"; Action = {Invoke-WebRequest -useb bit.ly/Automatech-Uninstaller | Invoke-Expression}}
-    @{Name = "PVE"; Action = {Edge 'https://pve.lan:8006/'}}
+    @{Name = "Launcher"; Action = {Invoke-WebRequest -useb bit.ly/Automatech-Launcher | Invoke-Expression}}
+    # @{Name = "PVE"; Action = {Edge 'https://pve.lan:8006/'}}
     @{Name = "Close"; Action = {$window.Close()}}
 )
 
