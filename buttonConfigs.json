@@ -1,0 +1,84 @@
+[
+    {
+        "Name": "Installer",
+        "Image": "unnamed.png",
+        "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression",
+        "Background": "Transparent",
+        "BorderThickness": "0",
+        "BorderBrush": "Transparent",
+        "Tooltip": "Installer"
+    },
+    {
+        "Name": "Uninstaller",
+        "Image": "unnamed.png",
+        "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Uninstaller | Invoke-Expression",
+        "Background": "Transparent",
+        "BorderThickness": "0",
+        "BorderBrush": "Transparent",
+        "Tooltip": "Uninstaller"
+    },
+    {
+        "Name": "OpenAI",
+        "Image": "unnamed.png",
+        "Action": "Edge 'https://chat.openai.com/'",
+        "Background": "Transparent",
+        "BorderThickness": "0",
+        "BorderBrush": "Transparent",
+        "Tooltip": "OpenAI"
+    },
+    {
+        "Name": "PVE",
+        "Image": "unnamed.png",
+        "Action": "RDP 'WS-MK-II.rdp'",
+        "Background": "Transparent",
+        "BorderThickness": "0",
+        "BorderBrush": "Transparent",
+        "Tooltip": "WS-MK-II"
+    },
+    {
+        "Name": "PVE",
+        "Image": "unnamed.png",
+        "Action": "Edge 'https://pve.lan:8006/'",
+        "Background": "Transparent",
+        "BorderThickness": "0",
+        "BorderBrush": "Transparent",
+        "Tooltip": "PVE"
+    },
+    {
+        "Name": "PVE",
+        "Image": "unnamed.png",
+        "Action": "Edge 'https://pve.lan:8006/'",
+        "Background": "Transparent",
+        "BorderThickness": "0",
+        "BorderBrush": "Transparent",
+        "Tooltip": "PVE"
+    },
+    {
+        "Name": "PVE",
+        "Image": "unnamed.png",
+        "Action": "Edge 'https://pve.lan:8006/'",
+        "Background": "Transparent",
+        "BorderThickness": "0",
+        "BorderBrush": "Transparent",
+        "Tooltip": "PVE"
+    },
+    {
+        "Name": "PVE",
+        "Image": "unnamed.png",
+        "Action": "Edge 'https://pve.lan:8006/'",
+        "Background": "Transparent",
+        "BorderThickness": "0",
+        "BorderBrush": "Transparent",
+        "Tooltip": "PVE"
+    },
+    {
+        "Name": "Close",
+        "Image": "unnamed.png",
+        "Action": "$window.Close()",
+        "Cursor": "Arrow",
+        "Background": "Transparent",
+        "BorderThickness": "0",
+        "BorderBrush": "Transparent",
+        "Tooltip": "Close"
+    }
+]

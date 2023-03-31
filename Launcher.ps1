@@ -1,6 +1,7 @@
 Add-Type -AssemblyName PresentationFramework
 
 function Edge {Start-Process msedge -ArgumentList "--edge-frame", "--app=$($args[0])" -WindowStyle Hidden}
+function RDP {& "mstsc.exe" "$env:userprofile\Documents\VMs\$args"}
 
 $window = New-Object System.Windows.Window -Property @{
     Title = "Run"
@@ -24,33 +25,24 @@ for ($i = 0; $i -lt 3; $i++) {
     $grid.ColumnDefinitions.Add($columnDefinition)
 }
 
-$buttonConfigs = @(
-    @{Name = "Installer"; Image = "unnamed.png"; Action = {Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression}}
-    @{Name = "Uninstaller"; Image = "unnamed.png"; Action = {Invoke-WebRequest -useb bit.ly/Automatech-Uninstaller | Invoke-Expression}}
-    @{Name = "PVE"; Image = "unnamed.png"; Action = {Edge 'https://pve.lan:8006/'}}
-    @{Name = "PVE"; Image = "unnamed.png"; Action = {Edge 'https://chat.openai.com/'}}
-    @{Name = "PVE"; Image = "unnamed.png"; Action = {Edge 'https://pve.lan:8006/'}}
-    @{Name = "PVE"; Image = "unnamed.png"; Action = {Edge 'https://pve.lan:8006/'}}
-    @{Name = "PVE"; Image = "unnamed.png"; Action = {Edge 'https://pve.lan:8006/'}}
-    @{Name = "PVE"; Image = "unnamed.png"; Action = {Edge 'https://pve.lan:8006/'}}
-    @{Name = "Close"; Image = "unnamed.png"; Action = {$window.Close()}}
-)
-
+$buttonConfigs = Get-Content -Raw -Path "buttonConfigs.json" | ConvertFrom-Json
 $buttons = @()
-$buttonConfigs.ForEach({
+$buttons = foreach ($config in $buttonConfigs) {
     $button = New-Object System.Windows.Controls.Button
-    $button.Content = $_.Name
-    $button.Add_Click($_.Action)
+    $button.Content = $config.Name
     $button.Cursor = [System.Windows.Input.Cursors]::Hand
-    $button.Background = "Transparent"
-    $button.BorderThickness = New-Object System.Windows.Thickness 0
+    $button.Background = $config.Background
+    $button.BorderThickness = New-Object System.Windows.Thickness $config.BorderThickness
     $image = New-Object System.Windows.Controls.Image
-    $image.Source = $_.Image
-    $image.Stretch = [System.Windows.Media.Stretch]::UniformToFill
+    $image.Source = $config.Image
+    $image.Stretch = "UniformToFill"
     $button.Content = $image
-    $buttons += $button
-    $button.BorderBrush = [System.Windows.Media.Brushes]::Transparent
-})
+    $button.BorderBrush = $config.BorderBrush
+    $button.ToolTip = $config.tooltip
+    $action = [Scriptblock]::Create($config.Action)
+    $button.Add_Click($action)
+    $button
+}
 
 $grid.Children.Clear()
 for ($i = 0; $i -lt $buttons.Count; $i++) {
