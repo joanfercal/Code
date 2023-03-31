@@ -7,7 +7,7 @@ $window = New-Object System.Windows.Window -Property @{
     Height = 200
     WindowStartupLocation = "CenterScreen"
     ResizeMode="NoResize"
-    WindowStyle = "None"
+    # WindowStyle = "None"
     # Topmost = $true
 }
 
