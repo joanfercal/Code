@@ -4,7 +4,7 @@
         "Image": {
             "Username": "joanfercal",
             "Repository": "Code",
-            "Branch": "main",
+            "Branch": "master",
             "Path": "images/button1.png"
         },
         "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression",
@@ -18,7 +18,7 @@
         "Image": {
             "Username": "joanfercal",
             "Repository": "Code",
-            "Branch": "main",
+            "Branch": "master",
             "Path": "images/button1.png"
         },
         "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Uninstaller | Invoke-Expression",
@@ -32,7 +32,7 @@
         "Image": {
             "Username": "joanfercal",
             "Repository": "Code",
-            "Branch": "main",
+            "Branch": "master",
             "Path": "images/button1.png"
         },
         "Action": "Edge 'https://chat.openai.com/'",
@@ -46,7 +46,7 @@
         "Image": {
             "Username": "joanfercal",
             "Repository": "Code",
-            "Branch": "main",
+            "Branch": "master",
             "Path": "images/button1.png"
         },
         "Action": "RDP 'WS-MK-II.rdp'",
@@ -60,7 +60,7 @@
         "Image": {
             "Username": "joanfercal",
             "Repository": "Code",
-            "Branch": "main",
+            "Branch": "master",
             "Path": "images/button1.png"
         },
         "Action": "Edge 'https://pve.lan:8006/'",
@@ -74,7 +74,7 @@
         "Image": {
             "Username": "joanfercal",
             "Repository": "Code",
-            "Branch": "main",
+            "Branch": "master",
             "Path": "images/button1.png"
         },
         "Action": "Edge 'https://pve.lan:8006/'",
@@ -88,7 +88,7 @@
         "Image": {
             "Username": "joanfercal",
             "Repository": "Code",
-            "Branch": "main",
+            "Branch": "master",
             "Path": "images/button1.png"
         },
         "Action": "Edge 'https://pve.lan:8006/'",
@@ -102,7 +102,7 @@
         "Image": {
             "Username": "joanfercal",
             "Repository": "Code",
-            "Branch": "main",
+            "Branch": "master",
             "Path": "images/button1.png"
         },
         "Action": "Edge 'https://pve.lan:8006/'",
@@ -116,7 +116,7 @@
         "Image": {
             "Username": "joanfercal",
             "Repository": "Code",
-            "Branch": "main",
+            "Branch": "master",
             "Path": "images/button1.png"
         },
         "Action": "$window.Close()",
