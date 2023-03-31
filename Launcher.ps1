@@ -25,7 +25,8 @@ for ($i = 0; $i -lt 3; $i++) {
     $grid.ColumnDefinitions.Add($columnDefinition)
 }
 
-$buttonConfigs = Get-Content -Raw -Path "buttonConfigs.json" | ConvertFrom-Json
+$buttonConfigs = (Invoke-WebRequest -Uri "bit.ly/Automatech-ButtonJSON").Content | ConvertFrom-Json
+
 $buttons = @()
 $buttons = foreach ($config in $buttonConfigs) {
     $button = New-Object System.Windows.Controls.Button
