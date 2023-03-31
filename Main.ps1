@@ -7,8 +7,8 @@ $window = New-Object System.Windows.Window -Property @{
     Height = 200
     WindowStartupLocation = "CenterScreen"
     ResizeMode="NoResize"
-    # WindowStyle = "None"
-    Topmost = $true
+    WindowStyle = "None"
+    # Topmost = $true
 }
 
 $grid = New-Object System.Windows.Controls.Grid
