@@ -1,7 +1,12 @@
 [
     {
         "Name": "Installer",
-        "Image": "unnamed.png",
+        "Image": {
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "main",
+            "Path": "images/button1.png"
+        },
         "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression",
         "Background": "Transparent",
         "BorderThickness": "0",
@@ -10,7 +15,12 @@
     },
     {
         "Name": "Uninstaller",
-        "Image": "unnamed.png",
+        "Image": {
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "main",
+            "Path": "images/button1.png"
+        },
         "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Uninstaller | Invoke-Expression",
         "Background": "Transparent",
         "BorderThickness": "0",
@@ -19,7 +29,12 @@
     },
     {
         "Name": "OpenAI",
-        "Image": "unnamed.png",
+        "Image": {
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "main",
+            "Path": "images/button1.png"
+        },
         "Action": "Edge 'https://chat.openai.com/'",
         "Background": "Transparent",
         "BorderThickness": "0",
@@ -28,7 +43,12 @@
     },
     {
         "Name": "PVE",
-        "Image": "unnamed.png",
+        "Image": {
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "main",
+            "Path": "images/button1.png"
+        },
         "Action": "RDP 'WS-MK-II.rdp'",
         "Background": "Transparent",
         "BorderThickness": "0",
@@ -37,7 +57,12 @@
     },
     {
         "Name": "PVE",
-        "Image": "unnamed.png",
+        "Image": {
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "main",
+            "Path": "images/button1.png"
+        },
         "Action": "Edge 'https://pve.lan:8006/'",
         "Background": "Transparent",
         "BorderThickness": "0",
@@ -46,7 +71,12 @@
     },
     {
         "Name": "PVE",
-        "Image": "unnamed.png",
+        "Image": {
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "main",
+            "Path": "images/button1.png"
+        },
         "Action": "Edge 'https://pve.lan:8006/'",
         "Background": "Transparent",
         "BorderThickness": "0",
@@ -55,7 +85,12 @@
     },
     {
         "Name": "PVE",
-        "Image": "unnamed.png",
+        "Image": {
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "main",
+            "Path": "images/button1.png"
+        },
         "Action": "Edge 'https://pve.lan:8006/'",
         "Background": "Transparent",
         "BorderThickness": "0",
@@ -64,7 +99,12 @@
     },
     {
         "Name": "PVE",
-        "Image": "unnamed.png",
+        "Image": {
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "main",
+            "Path": "images/button1.png"
+        },
         "Action": "Edge 'https://pve.lan:8006/'",
         "Background": "Transparent",
         "BorderThickness": "0",
@@ -73,7 +113,12 @@
     },
     {
         "Name": "Close",
-        "Image": "unnamed.png",
+        "Image": {
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "main",
+            "Path": "images/button1.png"
+        },
         "Action": "$window.Close()",
         "Cursor": "Arrow",
         "Background": "Transparent",

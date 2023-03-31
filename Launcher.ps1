@@ -1,19 +1,19 @@
 Add-Type -AssemblyName PresentationFramework
 
-function Edge {Start-Process msedge -ArgumentList "--edge-frame", "--app=$($args[0])" -WindowStyle Hidden}
-function RDP {& "mstsc.exe" "$env:userprofile\Documents\VMs\$args"}
+function Edge { Start-Process msedge -ArgumentList "--edge-frame", "--app=$($args[0])" -WindowStyle Hidden }
+function RDP { & "mstsc.exe" "$env:userprofile\Documents\VMs\$args" }
 
 $window = New-Object System.Windows.Window -Property @{
-    Title = "Run"
-    Width = 200
-    Height = 200
+    Title                 = "Run"
+    Width                 = 200
+    Height                = 200
     # WindowStartupLocation = "CenterScreen"
     WindowStartupLocation = "Manual"
-    Left = [System.Windows.SystemParameters]::PrimaryScreenWidth - $window.Width - 1
-    Top = [System.Windows.SystemParameters]::PrimaryScreenHeight - $window.Height - 50
-    ResizeMode="NoResize"
-    WindowStyle = "None"
-    Topmost = $true
+    Left                  = [System.Windows.SystemParameters]::PrimaryScreenWidth - $window.Width - 1
+    Top                   = [System.Windows.SystemParameters]::PrimaryScreenHeight - $window.Height - 50
+    ResizeMode            = "NoResize"
+    WindowStyle           = "None"
+    Topmost               = $true
 }
 
 $grid = New-Object System.Windows.Controls.Grid
@@ -35,11 +35,20 @@ $buttons = foreach ($config in $buttonConfigs) {
     $button.Background = $config.Background
     $button.BorderThickness = New-Object System.Windows.Thickness $config.BorderThickness
     $image = New-Object System.Windows.Controls.Image
-    $image.Source = $config.Image
     $image.Stretch = "UniformToFill"
+    $imageUri = "https://raw.githubusercontent.com/<username>/<repository>/<branch>/<path-to-image-file>"
+    $imageUri = $imageUri -replace "<username>", $config.Image.Username `
+        -replace "<repository>", $config.Image.Repository `
+        -replace "<branch>", $config.Image.Branch `
+        -replace "<path-to-image-file>", $config.Image.Path
+    $bitmap = New-Object System.Windows.Media.Imaging.BitmapImage
+    $bitmap.BeginInit()
+    $bitmap.UriSource = New-Object System.Uri($imageUri)
+    $bitmap.EndInit()
+    $image.Source = $bitmap
     $button.Content = $image
     $button.BorderBrush = $config.BorderBrush
-    $button.ToolTip = $config.tooltip
+    $button.ToolTip = $config.ToolTip
     $action = [Scriptblock]::Create($config.Action)
     $button.Add_Click($action)
     $button
