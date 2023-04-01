@@ -33,8 +33,8 @@ $buttons = foreach ($config in $buttonConfigs) {
     $button.Cursor = [System.Windows.Input.Cursors]::Hand
     $button.Background = $config.Background
     $button.BorderThickness = New-Object System.Windows.Thickness $config.BorderThickness
-    # $image = New-Object System.Windows.Controls.Image
-    # $image.Stretch = "UniformToFill"
+    $image = New-Object System.Windows.Controls.Image
+    $image.Stretch = "UniformToFill"
     $imageUri = "https://raw.githubusercontent.com/<username>/<repository>/<branch>/<path-to-image-file>"
     $imageUri = $imageUri -replace "<username>", $config.Image.Username `
         -replace "<repository>", $config.Image.Repository `
@@ -42,15 +42,9 @@ $buttons = foreach ($config in $buttonConfigs) {
         -replace "<path-to-image-file>", $config.Image.Path
     $bitmap = New-Object System.Windows.Media.Imaging.BitmapImage
     $bitmap.BeginInit()
-    $bitmap.CacheOption = [System.Windows.Media.Imaging.BitmapCacheOption]::OnLoad
     $bitmap.UriSource = New-Object System.Uri($imageUri)
     $bitmap.EndInit()
-    
-    # Convert the BitmapImage object to an SVG image using an Image control
-    $image = New-Object System.Windows.Controls.Image
-    $image.Stretch = "Uniform"
     $image.Source = $bitmap
-    $image.SnapsToDevicePixels = $true
     $button.Content = $image
     $button.BorderBrush = $config.BorderBrush
     $button.ToolTip = $config.ToolTip
