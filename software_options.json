@@ -43,7 +43,7 @@
         {"Name": "Python 3.11", "WingetName": "Python.Python.3.11"},
         {"Name": "Tailscale", "WingetName": "tailscale.tailscale"},
         {"Name": "Powershell 7", "WingetName": "Microsoft.PowerShell"},
-        {"Name": "DevToys", "WingetName": "DevToys"},
+        {"Name": "DevToys", "WingetName": "9PGCV4V3BK4W"},
         {"Name": "Process Monitor", "WingetName": "Microsoft.Sysinternals.ProcessMonitor"},
         {"Name": "Process Explorer", "WingetName": "Microsoft.Sysinternals.ProcessExplorer"},
         {"Name": "Autoruns", "WingetName": "Microsoft.Sysinternals.Autoruns"},
@@ -75,7 +75,9 @@
         {"Name": "NirCmd", "WingetName": "NirSoft.NirCmd"},
         {"Name": "AdvancedRun", "WingetName": "NirSoft.AdvancedRun"},
         {"Name": "Wireless Network Watcher", "WingetName": "NirSoft.WirelessNetworkWatcher"},
-        {"Name": "Balena Etcher", "WingetName": "Balena.Etcher"}        
+        {"Name": "Balena Etcher", "WingetName": "Balena.Etcher"},
+        {"Name": "File Optimizer", "WingetName": "Nikkho.FileOptimizer"}
+
     ],
     "Office": [
         {"Name": "Microsoft Teams", "WingetName": "Microsoft.Teams"},

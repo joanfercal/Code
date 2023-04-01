@@ -1,20 +1,27 @@
 [
     {
         "Name": "Installer",
-        "Image": "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB60lEQVR4nO2YsUsDMRTGgyiIg4I6OYujqw4OjoqLozg7uomDoNzo4KiDoaXflytdXRRHi6P4DwiCYHURXAo6WNBKylOQ3tVa765pyQ8y9N5L7n19+UI4pfoZrfUYgHOSNZJ1R0aN5FmxWBxtWwiAAwcKr0cNW9tfulG1k8IwnFOOAGBehFRtje1M2JYJF8oxAFxKbVstE8vl8iCAe0leUY4BYFVqe9BaD8UmFgqFddmLN0EQDCjHCIJgwNYmYtZiEwFciZAN5SgkN0XIdWQCgEVJeAIwrBxFaz0C4NnWaoxZaEoAcCrd2FWOQ3Jf/vSTHwFjzAzJd5KvpVJpUjlOPp+fAvBmaw7DcPo7AOBYunGkegSSoXTlsPEgl8uNA3hpUuc4JGcBfNhdZIyZsN3Y6/a1I4GxY4XcOVDIf+9ft+rrh+pR+FW/F+II9B2JAcCSvZW2MqQdncZJVuw7Ou6Ivc4DeJQil+Py7IsyOKEq/xHy0GqhpgUzjjNNIVFdTDLekRC7kCwYuUebFowRn2Q81VOrL4UwootJxtM+tfrP7FF4IUJXTq0s40zT7FnG6YXE4Dsi+K1Fb/ZovEcE7xF6j0TjPSJ4jzB5j7j9Oahd7BW/lZiuf6BzHXohDnekkoFJ0z8E8ItJe2A0DoFP14I8FisTLaYAAAAASUVORK5CYII=",
+        "Image": {
+            "Type": "Url",
+            "Username": "joanfercal",
+            "Repository": "Code",
+            "Branch": "master",
+            "Path": "images/proxmox.png"
+        },
         "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression",
         "Background": "Transparent",
         "BorderThickness": "0",
-        "BorderBrush": "Transparent",
+        "BorderBrush": "Green",
         "Tooltip": "Installer"
     },
     {
         "Name": "Uninstaller",
         "Image": {
+            "Type": "Url",
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
-            "Path": "images/proxmox.png"
+            "Path": "images/pve.png"
         },
         "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Uninstaller | Invoke-Expression",
         "Background": "Transparent",
@@ -25,6 +32,7 @@
     {
         "Name": "OpenAI",
         "Image": {
+            "Type": "Url",
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
@@ -37,8 +45,9 @@
         "Tooltip": "OpenAI"
     },
     {
-        "Name": "PVE",
+        "Name": "RDP",
         "Image": {
+            "Type": "Url",
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
@@ -53,6 +62,7 @@
     {
         "Name": "PVE",
         "Image": {
+            "Type": "Url",
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
@@ -67,6 +77,7 @@
     {
         "Name": "PVE",
         "Image": {
+            "Type": "Url",
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
@@ -81,6 +92,7 @@
     {
         "Name": "PVE",
         "Image": {
+            "Type": "Url",
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
@@ -95,6 +107,7 @@
     {
         "Name": "PVE",
         "Image": {
+            "Type": "Url",
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
@@ -109,10 +122,8 @@
     {
         "Name": "Close",
         "Image": {
-            "Username": "joanfercal",
-            "Repository": "Code",
-            "Branch": "master",
-            "Path": "images/proxmox.png"
+            "Type": "Base64",
+            "Base64": "iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAACalBMVEXSRyb19fX19PTSSCfSSSjTSirjmonjnIvnrqD08vL18/PSSSnTTCzacVjkopP08fDnr6Lw3djUUDHVWDrWWTvdfWflpJXlppfpua3pua7sysL07+7SRyfTTi/UTy/UTzDUUDDUUzTVVjjWWz7XXkHXXkLXX0PTSinu083y5uPZaU/ilYPXYUXYY0jabVPab1bbdFzcdl7cd1/imIbjm4nkoJDlqJnmq53nrZ/nsqXosqbpuq/rw7rsxr3tzMTu0crv1tDw3trx4Nzy5ODy5+Ty6Obz6uj08O/z7Orz7ezmqpv19PPhlIHpuKzginbVVDbu1M7SSCjSSinTSyrTTS3TTi7UUjPVVDXVVTfVVzjWWTzWWjzWWz3WXD7WXD/WXEDWXUDXX0LXYEPXYETYYkfYZUnYZUrYZ0zZaU7ZalDZa1HZbFLabVTablTablXab1XacFfacVfbcVjbc1rbc1vbdV3bdl7ceWHce2TdfGXdfWbsx77ty8Px4N3dfmfdf2negWzegmzeg27fh3LfiXXgj3zhkX7hkn/il4XimIfjmojjm4vjnY3jno7kno3kn4/koI/koZHkopLlo5Tlp5jmqJnmqZrmqZvmqpzos6fotKfotKjotanotqrotqvpt6vpt6zpuq7pu7DqvLHqvLLqvbPqvrTqv7Tqv7XqwLbrwbjrxLvrxbzsyL/syMDtzcXtz8fu0Mnu0cvv1c/v19Hv2tXw2tXw29fw3tnw39vx4Nvx4d3x4t7x49/YZEnVUzXx4+Dy5OHy5ePy5+Xz6efz6+nz7Ov07ez07uz07u307+308vH18/L19fRgHKZxAAACpUlEQVR42u3SA7fjWgDF8b0rXdu2bdvPtm3pPtu2NLZt+ztNKmVVSdPh+S2G/yMIgiAIgiAIgdzak/KWOqObP0Bk9ANUT/cqIpJqYxR6EJEDjMbCJRcxX6NYruLIfiiWfLlEREREREREREREZi9ExPD4T4djHbGL/ygrJpGbW81/DQyuy+nIuAV22kf0CTkn6Wbtf8MQg8hjufS39RWtI1VfWSmn6y3UNFK4moFcl65hpCCXgaWkaxYxLKPc+G+nnHMp0CpSR7lDDWjOo12vRpEHpiizr96T1r2sTWQpZfZUAojro8MWQ2SRzPmgWoEGHf3tKgdQ9TtdXosgEtqHwI/yE3U3AOPfdOuPNmJLQ9xB+tlxp72RQ4+8VIRWbGVII0A9PSbOkEyA5FP6eB1hrGRIq4D36bbE2HyCtOgB1E7TqwNhFP08VB3YMCW/Ama6vHkDkHCczLJXnp+hRzZUu9ZG8ktgli7/QtI0TSZC8tJpui1CtVIdyc8BC13OmSBpPEZ+C0nLlGeKUO12e+QboJMeX0Py5CRphuQ7uqyNcrm6gTZ6fe/Y9AnSBKRuosufUK04ieQaIIM+PoPkGR35xX0b6GaCakX2yFg+7pqjVyYkT+no50WolqYjqauAfjs9sg0AHh6nn8l4qPYu7T4BTHT73954qIb+/oFqJdtotxFIT6LT8jgAD47Rn64RiuWXNbU8V/tC3SgdbI8CXXQYMgKo2EuZRSj17B/yxegDbjtCu0EDcO9uyiQ9AoV+0FHu7BPAO87bC8ayEcqZoNDTDKD6RiCRDilHKbfieig0z0CyAH0yA1t/E5S6vzs5AMsdgD5xjgH8Fw9NvV1DuZmP9dBYSVcefVmz70EMlLYP021nZiViJS2jrdPyS/t75RAEQRCEWDoPhJ7UFcVJ46kAAAAASUVORK5CYII="
         },
         "Action": "$window.Close()",
         "Cursor": "Arrow",
