@@ -35,19 +35,32 @@ $buttons = foreach ($config in $buttonConfigs) {
     $button.BorderThickness = New-Object System.Windows.Thickness $config.BorderThickness
     $image = New-Object System.Windows.Controls.Image
     $image.Stretch = "UniformToFill"
-    $imageUri = "https://raw.githubusercontent.com/<username>/<repository>/<branch>/<path-to-image-file>"
-    $imageUri = $imageUri -replace "<username>", $config.Image.Username `
-        -replace "<repository>", $config.Image.Repository `
-        -replace "<branch>", $config.Image.Branch `
-        -replace "<path-to-image-file>", $config.Image.Path
-    $bitmap = New-Object System.Windows.Media.Imaging.BitmapImage
-    $bitmap.BeginInit()
-    $bitmap.UriSource = New-Object System.Uri($imageUri)
-    $bitmap.EndInit()
-    $image.Source = $bitmap
+    if ($config.Image.Base64) {
+        $bitmap = New-Object System.Windows.Media.Imaging.BitmapImage
+        $memoryStream = New-Object System.IO.MemoryStream
+        $memoryStream.Write([System.Convert]::FromBase64String($config.Image.Base64), 0, [System.Convert]::FromBase64String($config.Image.Base64).Length)
+        $memoryStream.Position = 0
+        $bitmap.BeginInit()
+        $bitmap.StreamSource = $memoryStream
+        $bitmap.CacheOption = "OnLoad"
+        $bitmap.EndInit()
+        $image.Source = $bitmap
+    } else {
+        $imageUri = "https://raw.githubusercontent.com/<username>/<repository>/<branch>/<path-to-image-file>"
+        $imageUri = $imageUri -replace "<username>", $config.Image.Username `
+            -replace "<repository>", $config.Image.Repository `
+            -replace "<branch>", $config.Image.Branch `
+            -replace "<path-to-image-file>", $config.Image.Path
+        $bitmap = New-Object System.Windows.Media.Imaging.BitmapImage
+        $bitmap.BeginInit()
+        $bitmap.UriSource = New-Object System.Uri($imageUri)
+        $bitmap.EndInit()
+        $image.Source = $bitmap
+    }
     $button.Content = $image
     $button.BorderBrush = $config.BorderBrush
     $button.ToolTip = $config.ToolTip
+
     $action = [Scriptblock]::Create($config.Action)
     $button.Add_Click($action)
     $button

@@ -1,12 +1,7 @@
 [
     {
         "Name": "Installer",
-        "Image": {
-            "Username": "joanfercal",
-            "Repository": "Code",
-            "Branch": "master",
-            "Path": "images/proxmox.png"
-        },
+        "Image": "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAB60lEQVR4nO2YsUsDMRTGgyiIg4I6OYujqw4OjoqLozg7uomDoNzo4KiDoaXflytdXRRHi6P4DwiCYHURXAo6WNBKylOQ3tVa765pyQ8y9N5L7n19+UI4pfoZrfUYgHOSNZJ1R0aN5FmxWBxtWwiAAwcKr0cNW9tfulG1k8IwnFOOAGBehFRtje1M2JYJF8oxAFxKbVstE8vl8iCAe0leUY4BYFVqe9BaD8UmFgqFddmLN0EQDCjHCIJgwNYmYtZiEwFciZAN5SgkN0XIdWQCgEVJeAIwrBxFaz0C4NnWaoxZaEoAcCrd2FWOQ3Jf/vSTHwFjzAzJd5KvpVJpUjlOPp+fAvBmaw7DcPo7AOBYunGkegSSoXTlsPEgl8uNA3hpUuc4JGcBfNhdZIyZsN3Y6/a1I4GxY4XcOVDIf+9ft+rrh+pR+FW/F+II9B2JAcCSvZW2MqQdncZJVuw7Ou6Ivc4DeJQil+Py7IsyOKEq/xHy0GqhpgUzjjNNIVFdTDLekRC7kCwYuUebFowRn2Q81VOrL4UwootJxtM+tfrP7FF4IUJXTq0s40zT7FnG6YXE4Dsi+K1Fb/ZovEcE7xF6j0TjPSJ4jzB5j7j9Oahd7BW/lZiuf6BzHXohDnekkoFJ0z8E8ItJe2A0DoFP14I8FisTLaYAAAAASUVORK5CYII=",
         "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression",
         "Background": "Transparent",
         "BorderThickness": "0",
