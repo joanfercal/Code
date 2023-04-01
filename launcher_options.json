@@ -5,7 +5,7 @@
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
-            "Path": "images/button1.png"
+            "Path": "images/proxmox.png"
         },
         "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Installer | Invoke-Expression",
         "Background": "Transparent",
@@ -19,7 +19,7 @@
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
-            "Path": "images/button1.png"
+            "Path": "images/proxmox.png"
         },
         "Action": "Invoke-WebRequest -useb bit.ly/Automatech-Uninstaller | Invoke-Expression",
         "Background": "Transparent",
@@ -33,7 +33,7 @@
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
-            "Path": "images/button1.png"
+            "Path": "images/proxmox.png"
         },
         "Action": "Edge 'https://chat.openai.com/'",
         "Background": "Transparent",
@@ -61,7 +61,7 @@
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
-            "Path": "images/button1.png"
+            "Path": "images/proxmox.png"
         },
         "Action": "Edge 'https://pve.lan:8006/'",
         "Background": "Transparent",
@@ -75,7 +75,7 @@
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
-            "Path": "images/button1.png"
+            "Path": "images/proxmox.png"
         },
         "Action": "Edge 'https://pve.lan:8006/'",
         "Background": "Transparent",
@@ -89,7 +89,7 @@
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
-            "Path": "images/button1.png"
+            "Path": "images/proxmox.png"
         },
         "Action": "Edge 'https://pve.lan:8006/'",
         "Background": "Transparent",
@@ -103,7 +103,7 @@
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
-            "Path": "images/button1.png"
+            "Path": "images/proxmox.png"
         },
         "Action": "Edge 'https://pve.lan:8006/'",
         "Background": "Transparent",
@@ -117,7 +117,7 @@
             "Username": "joanfercal",
             "Repository": "Code",
             "Branch": "master",
-            "Path": "images/button1.png"
+            "Path": "images/proxmox.png"
         },
         "Action": "$window.Close()",
         "Cursor": "Arrow",
