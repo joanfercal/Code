@@ -1,17 +1,21 @@
-Add-Type -AssemblyName PresentationFramework
+Add-Type -AssemblyName PresentationFramework,WindowsBase,System.Xaml
+Add-Type -AssemblyName System.Windows.Forms, System.Drawing
 
 function Edge { Start-Process msedge -ArgumentList "--edge-frame", "--app=$($args[0])" -WindowStyle Hidden }
 function RDP { & "mstsc.exe" "$env:userprofile\Documents\VMs\$args" }
 
 $window = New-Object System.Windows.Window -Property @{
+    Title                 = "Launcher"
     Width                 = 200
     Height                = 200
     WindowStartupLocation = "Manual"
-    Left                  = [System.Windows.SystemParameters]::PrimaryScreenWidth - 201
+    Left                  = [System.Windows.SystemParameters]::PrimaryScreenWidth - 210
     Top                   = [System.Windows.SystemParameters]::PrimaryScreenHeight - 250
     ResizeMode            = "NoResize"
     WindowStyle           = "None"
     Topmost               = $true
+    AllowsTransparency    = $true
+    ShowInTaskbar         = $False
 }
 
 $grid = New-Object System.Windows.Controls.Grid
@@ -21,8 +25,8 @@ for ($i = 0; $i -lt 3; $i++) {
     $grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition))
 }
 
-# $buttonConfigs = Get-Content -Raw -Path "launcher_options.json" | ConvertFrom-Json
-$buttonConfigs = (Invoke-WebRequest -Uri "bit.ly/Automatech-ButtonJSON").Content | ConvertFrom-Json
+$buttonConfigs = Get-Content -Raw -Path "launcher_options.json" | ConvertFrom-Json
+# $buttonConfigs = (Invoke-WebRequest -Uri "bit.ly/Automatech-ButtonJSON").Content | ConvertFrom-Json
 
 
 $buttons = foreach ($config in $buttonConfigs) {
@@ -39,12 +43,7 @@ $buttons = foreach ($config in $buttonConfigs) {
             $bitmap.EndInit()
             $bitmap
         } else {
-            $imageUri = "https://raw.githubusercontent.com/{0}/{1}/{2}/{3}" -f $config.Image.Username, $config.Image.Repository, $config.Image.Branch, $config.Image.Path
-            $bitmap = New-Object System.Windows.Media.Imaging.BitmapImage
-            $bitmap.BeginInit()
-            $bitmap.UriSource = New-Object System.Uri($imageUri)
-            $bitmap.EndInit()
-            $bitmap
+            $config.Image.Path
         }
     }
 
@@ -66,6 +65,41 @@ for ($i = 0; $i -lt $buttons.Count; $i++) {
     [System.Windows.Controls.Grid]::SetRow($buttons[$i], [math]::Floor($i / 3))
     [System.Windows.Controls.Grid]::SetColumn($buttons[$i], $i % 3)
 }
+
+# create a system tray icon
+$notifyIcon = New-Object System.Windows.Forms.NotifyIcon
+$iconBytes = [System.Convert]::FromBase64String($base64Icon)
+$iconStream = New-Object System.IO.MemoryStream -ArgumentList (,$iconBytes)
+$loadedIcon = [System.Drawing.Icon]::FromHandle(([System.Drawing.Bitmap]::FromStream($iconStream)).GetHicon())
+$notifyIcon.Icon = $loadedIcon
+# $notifyIcon.Icon = [System.Drawing.SystemIcons]::Application
+$notifyIcon.Visible = $true
+$notifyIcon.Text = "WebGui"
+
+$notifyIcon.Add_Click({
+    if ($_.Button -eq 'Left') {
+        $window.Topmost = -not $window.Topmost
+    } elseif ($_.Button -eq 'Right') {
+        $window.Close()
+    }
+})
+
+$notifyIcon.Add_DoubleClick({
+    if ($_.Button -eq 'Left') {
+        if ($window.WindowState -eq [System.Windows.WindowState]::Normal) {
+            $window.WindowState = [System.Windows.WindowState]::Minimized
+        } else {
+            $window.WindowState = [System.Windows.WindowState]::Normal
+        }
+    }
+})
+
+$window.Add_Closed({
+    $notifyIcon.Dispose()
+})
+
+
+
 
 $grid.Background = "Transparent"
 $window.Background = "Transparent"
