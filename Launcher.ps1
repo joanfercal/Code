@@ -23,13 +23,13 @@ $window = New-Object System.Windows.Window -Property @{
 
 $grid = New-Object System.Windows.Controls.Grid
 
-for ($i = 0; $i -lt 3; $i++) {
+for ($i = 0; $i -lt 4; $i++) {
     $grid.RowDefinitions.Add((New-Object System.Windows.Controls.RowDefinition))
     $grid.ColumnDefinitions.Add((New-Object System.Windows.Controls.ColumnDefinition))
 }
 
-# $buttonConfigs = Get-Content -Raw -Path "launcher_options.json" | ConvertFrom-Json
-$buttonConfigs = (Invoke-WebRequest -Uri "bit.ly/Automatech-ButtonJSON").Content | ConvertFrom-Json
+$buttonConfigs = Get-Content -Raw -Path "launcher_options.json" | ConvertFrom-Json
+# $buttonConfigs = (Invoke-WebRequest -Uri "bit.ly/Automatech-ButtonJSON").Content | ConvertFrom-Json
 
 
 $buttons = foreach ($config in $buttonConfigs) {
@@ -65,8 +65,8 @@ $buttons = foreach ($config in $buttonConfigs) {
 
 for ($i = 0; $i -lt $buttons.Count; $i++) {
     $grid.Children.Add($buttons[$i])
-    [System.Windows.Controls.Grid]::SetRow($buttons[$i], [math]::Floor($i / 3))
-    [System.Windows.Controls.Grid]::SetColumn($buttons[$i], $i % 3)
+    [System.Windows.Controls.Grid]::SetRow($buttons[$i], [math]::Floor($i / 4))
+    [System.Windows.Controls.Grid]::SetColumn($buttons[$i], $i % 4)
 }
 
 # create a system tray icon
